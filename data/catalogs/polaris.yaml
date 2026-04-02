@@ -1,0 +1,29 @@
+id: polaris
+name: Apache Polaris
+type: catalog
+vendor: Apache (Snowflake origin)
+open_source: true
+license: Apache 2.0
+website: https://polaris.apache.org
+description: >
+  Open-source, fully-featured Iceberg catalog implementing the REST API.
+  Graduated as Apache TLP in February 2026. Supports Iceberg and Delta Lake
+  tables with unified access controls and credential vending.
+rest_api: full
+vended_credentials: true
+multi_cloud:
+  - S3
+  - GCS
+  - ADLS
+view_support: full
+multi_table_transactions: partial
+version_control: false
+catalog_federation: preview
+multi_format:
+  - Iceberg
+  - Delta Lake
+notes: >
+  v1.0 (July 2025) was first production-ready release. Supports identity
+  providers (Okta, Google), JDBC persistence, HTTP caching with ETags,
+  versioned policies. Managed service available as Snowflake Open Catalog.
+last_verified: "2026-03-27"

@@ -1,0 +1,29 @@
+id: nessie
+name: Project Nessie
+type: catalog
+vendor: Dremio / Community
+open_source: true
+license: Apache 2.0
+website: https://projectnessie.org
+description: >
+  Transactional catalog with Git-like semantics — branches, tags, merges,
+  and cherry-picks for data lakes. Doesn't copy data; versions file lists.
+  Supports millions of tables and thousands of commits per second.
+rest_api: full
+vended_credentials: true
+multi_cloud:
+  - S3
+  - GCS
+  - ADLS
+view_support: full
+multi_table_transactions: full
+version_control: true
+catalog_federation: none
+multi_format:
+  - Iceberg
+notes: >
+  Technology behind Dremio's managed catalog. Pluggable storage backends
+  include DynamoDB, BigTable, Cassandra, PostgreSQL, and RocksDB.
+  Cloud-native Java REST API, deployable via Docker or Kubernetes.
+  GCS and ADLS credential vending is experimental.
+last_verified: "2026-03-27"

@@ -1,0 +1,26 @@
+id: glue
+name: AWS Glue Data Catalog
+type: catalog
+vendor: AWS
+open_source: false
+website: https://aws.amazon.com/glue/
+description: >
+  AWS-managed metadata catalog for Iceberg tables. Integrates with Athena,
+  Redshift, and EMR. Includes automatic optimization for compaction,
+  snapshot management, and orphan file cleanup.
+rest_api: none
+vended_credentials: false
+multi_cloud:
+  - S3
+view_support: none
+multi_table_transactions: none
+version_control: false
+catalog_federation: full
+multi_format:
+  - Iceberg
+notes: >
+  No native REST catalog endpoint — uses AWS SDK/Glue API. Catalog
+  federation GA (November 2025) for federating remote Iceberg catalogs
+  with real-time metadata sync. Lake Formation integration for access
+  controls. View APIs not supported.
+last_verified: "2026-03-27"

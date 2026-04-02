@@ -1,0 +1,60 @@
+id: fabric
+name: Microsoft Fabric
+type: platform
+vendor: Microsoft
+open_source: false
+website: https://www.microsoft.com/en-us/microsoft-fabric
+description: >-
+  Unified analytics platform using Delta-to-Iceberg metadata virtualization. External engines
+  can read Fabric data as Iceberg tables, but all writes go through the Delta format layer.
+  Not a native Iceberg platform.
+
+spec_support:
+  v1: false
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: false
+  avro: false
+
+dml:
+  insert: none
+  update: none
+  delete: none
+  merge: none
+  truncate: none
+
+capabilities:
+  schema_evolution: partial
+  type_widening: none
+  partition_evolution: none
+  hidden_partitioning: none
+  time_travel: none
+  position_deletes: none
+  equality_deletes: none
+  merge_on_read: none
+  copy_on_write: none
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: none
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: none
+  snapshot_expiry: none
+  orphan_cleanup: none
+  manifest_rewrite: none
+
+catalog_integrations:
+  - catalog: onelake
+    mode: read_write
+    notes: Native integration — OneLake is Fabric's storage and catalog layer
+
+notes: >-
+  Delta-to-Iceberg metadata virtualization. External engines can read Fabric
+  data as Iceberg via OneLake REST Catalog API (preview Oct 2025). Snowflake
+  can write Iceberg to OneLake (GA Feb 2026). Not a native Iceberg platform.
+
+last_verified: "2026-03-27"

@@ -1,0 +1,66 @@
+id: doris
+name: Apache Doris
+type: engine
+vendor: Apache
+open_source: true
+website: https://doris.apache.org/
+description: >-
+  Apache Doris is a real-time analytical database with Iceberg support for federated
+  lakehouse queries. It supports partition transforms on the write side and time travel
+  capabilities, with write support in experimental stages.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: true
+  avro: false
+
+dml:
+  insert: preview
+  update: none
+  delete: none
+  merge: none
+  truncate: none
+
+capabilities:
+  schema_evolution: partial
+  type_widening: unknown
+  partition_evolution: full
+  hidden_partitioning: full
+  time_travel: full
+  position_deletes: partial
+  equality_deletes: partial
+  merge_on_read: partial
+  copy_on_write: none
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: none
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: none
+  snapshot_expiry: none
+  orphan_cleanup: none
+  manifest_rewrite: none
+
+catalog_integrations:
+  - catalog: hms
+    mode: read_write
+  - catalog: glue
+    mode: read_write
+  - catalog: polaris
+    mode: read_write
+    notes: via REST catalog
+  - catalog: s3_tables
+    mode: read_write
+
+notes: >-
+  Read-side schema evolution. Write-side partition evolution and hidden partitioning
+  transforms. Position and equality deletes on read side. Write support is experimental,
+  with HMS as primary write target.
+
+last_verified: "2026-03-27"

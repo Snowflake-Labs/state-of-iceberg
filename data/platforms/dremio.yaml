@@ -1,0 +1,65 @@
+id: dremio
+name: Dremio
+type: platform
+vendor: Dremio
+open_source: false
+website: https://www.dremio.com
+description: >-
+  Lakehouse query engine with native Iceberg support including full DML, Git-like version
+  control via Nessie, and Iceberg views. Ships with a built-in Open Catalog for managed
+  Iceberg catalog deployment.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: false
+  avro: false
+
+dml:
+  insert: full
+  update: full
+  delete: full
+  merge: full
+  truncate: full
+  bulk_load: "COPY INTO"
+
+capabilities:
+  schema_evolution: full
+  type_widening: full
+  partition_evolution: full
+  hidden_partitioning: full
+  time_travel: full
+  position_deletes: full
+  equality_deletes: full
+  merge_on_read: full
+  copy_on_write: full
+  branching_tagging: full
+  iceberg_views: full
+  streaming_write: none
+
+maintenance:
+  auto_compaction: full
+  manual_compaction: full
+  snapshot_expiry: full
+  orphan_cleanup: full
+  manifest_rewrite: full
+
+catalog_integrations:
+  - catalog: nessie
+    mode: read_write
+  - catalog: polaris
+    mode: read_write
+  - catalog: glue
+    mode: read_write
+  - catalog: s3_tables
+    mode: read_write
+
+notes: >-
+  Built-in Open Catalog (March 2026) - zero-config managed Iceberg catalog.
+  Git-like version control via Nessie. Full branching, tagging, and Iceberg views support.
+
+last_verified: "2026-03-27"

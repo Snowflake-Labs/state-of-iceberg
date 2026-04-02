@@ -1,0 +1,64 @@
+id: clickhouse
+name: ClickHouse
+type: engine
+vendor: ClickHouse Inc.
+open_source: true
+website: https://clickhouse.com/
+description: >-
+  ClickHouse is a column-oriented OLAP database with Iceberg support primarily for
+  read-side analytics. Write support for local tables was merged in July 2025, with
+  catalog-integrated writes still in development.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: false
+  avro: false
+
+dml:
+  insert: partial
+  update: none
+  delete: none
+  merge: none
+  truncate: none
+
+capabilities:
+  schema_evolution: partial
+  type_widening: partial
+  partition_evolution: partial
+  hidden_partitioning: partial
+  time_travel: full
+  position_deletes: full
+  equality_deletes: full
+  merge_on_read: partial
+  copy_on_write: none
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: none
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: none
+  snapshot_expiry: none
+  orphan_cleanup: none
+  manifest_rewrite: none
+
+catalog_integrations:
+  - catalog: glue
+    mode: read
+  - catalog: polaris
+    mode: read
+    notes: via REST catalog
+  - catalog: unity_catalog
+    mode: read
+
+notes: >-
+  Write support merged July 2025, limited to local tables only. Catalog-integrated
+  writes in development. Read-side schema evolution and partition pruning. Equality
+  deletes supported in v25.8+.
+
+last_verified: "2026-03-27"

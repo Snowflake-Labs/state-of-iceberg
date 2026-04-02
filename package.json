@@ -1,0 +1,33 @@
+{
+  "name": "state-of-iceberg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": ["apache-iceberg", "interoperability", "lakehouse", "data-engineering"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@react-sigma/core": "^5.0.6",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "graphology": "^0.26.0",
+    "graphology-layout-forceatlas2": "^0.10.1",
+    "graphology-types": "^0.24.8",
+    "next": "^16.2.1",
+    "postcss": "^8.5.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sigma": "^3.0.2",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2",
+    "yaml": "^2.8.3"
+  }
+}

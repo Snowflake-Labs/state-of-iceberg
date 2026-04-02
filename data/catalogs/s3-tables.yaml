@@ -1,0 +1,26 @@
+id: s3_tables
+name: AWS S3 Tables
+type: catalog
+vendor: AWS
+open_source: false
+website: https://aws.amazon.com/s3/features/tables/
+description: >
+  Purpose-built S3 bucket type for Iceberg tables with built-in REST
+  Catalog APIs. Automatic maintenance (compaction, snapshot management,
+  orphan cleanup). 3x faster query throughput vs self-managed tables.
+rest_api: full
+vended_credentials: true
+multi_cloud:
+  - S3
+view_support: none
+multi_table_transactions: none
+version_control: false
+catalog_federation: none
+multi_format:
+  - Iceberg
+notes: >
+  Launched December 2024. REST Catalog APIs added March 2025. Cross-region
+  and cross-account replication GA December 2025. Up to 10,000 tables per
+  bucket. Unlike standalone catalogs, S3 Tables also manages the underlying
+  storage and provides automatic table maintenance.
+last_verified: "2026-03-27"

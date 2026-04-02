@@ -1,0 +1,66 @@
+id: starrocks
+name: StarRocks
+type: engine
+vendor: StarRocks
+open_source: true
+website: https://www.starrocks.io/
+description: >-
+  StarRocks is a high-performance analytical database with Iceberg support for federated
+  queries. It excels at read-side analytics with partial write capabilities and includes
+  a compaction service in version 4.0.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: true
+  avro: false
+
+dml:
+  insert: full
+  update: none
+  delete: none
+  merge: none
+  truncate: none
+  bulk_load: "INSERT OVERWRITE"
+
+capabilities:
+  schema_evolution: partial
+  type_widening: unknown
+  partition_evolution: none
+  hidden_partitioning: partial
+  time_travel: none
+  position_deletes: partial
+  equality_deletes: partial
+  merge_on_read: partial
+  copy_on_write: none
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: none
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: partial
+  snapshot_expiry: none
+  orphan_cleanup: none
+  manifest_rewrite: none
+
+catalog_integrations:
+  - catalog: hms
+    mode: read_write
+  - catalog: glue
+    mode: read_write
+  - catalog: polaris
+    mode: read_write
+    notes: via REST catalog
+  - catalog: lakekeeper
+    mode: read_write
+
+notes: >-
+  Read-side schema evolution and hidden partitioning. Position and equality deletes
+  supported on read side. Manual compaction via 4.0 compaction service.
+
+last_verified: "2026-03-27"

@@ -1,0 +1,27 @@
+id: onelake
+name: OneLake
+type: catalog
+vendor: Microsoft
+open_source: false
+website: https://learn.microsoft.com/en-us/fabric/onelake/
+description: >
+  Microsoft's unified data lake for Fabric. Exposes an Iceberg REST Catalog
+  endpoint for external engine access to Fabric tables. Supports read-only
+  metadata operations via the Iceberg REST Catalog specification.
+rest_api: preview
+vended_credentials: false
+multi_cloud:
+  - ADLS
+view_support: none
+multi_table_transactions: none
+version_control: false
+catalog_federation: none
+multi_format:
+  - Iceberg
+  - Delta Lake
+notes: >
+  REST endpoint at https://onelake.table.fabric.microsoft.com/iceberg.
+  Preview since October 2025. Currently read-only metadata operations.
+  Bi-directional Snowflake integration GA January 2026. Delta Lake
+  operations planned for future releases.
+last_verified: "2026-03-27"

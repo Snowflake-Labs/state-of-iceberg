@@ -1,0 +1,74 @@
+id: snowflake
+name: Snowflake
+type: platform
+vendor: Snowflake
+open_source: false
+website: https://www.snowflake.com
+description: >-
+  Cloud data platform with native Apache Iceberg table support for managed and unmanaged tables.
+  Snowflake provides full DML, automatic maintenance, and cross-cloud catalog interoperability
+  through Polaris Catalog and external catalog federation.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: preview
+
+file_formats:
+  parquet: true
+  orc: ingest_only
+  avro: ingest_only
+
+dml:
+  insert: full
+  update: full
+  delete: full
+  merge: full
+  truncate: full
+  bulk_load: "COPY INTO, Snowpipe"
+
+capabilities:
+  schema_evolution: full
+  type_widening: full
+  partition_evolution: none
+  hidden_partitioning: full
+  time_travel: full
+  position_deletes: full
+  equality_deletes: full
+  merge_on_read: full
+  copy_on_write: full
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: partial
+
+maintenance:
+  auto_compaction: full
+  manual_compaction: full
+  snapshot_expiry: full
+  orphan_cleanup: full
+  manifest_rewrite: full
+
+catalog_integrations:
+  - catalog: polaris
+    mode: read_write
+    auth: oauth
+  - catalog: glue
+    mode: read_write
+    auth: sigv4
+  - catalog: unity_catalog
+    mode: read_write
+    auth: oauth
+  - catalog: s3_tables
+    mode: read
+    notes: Via Glue federation
+  - catalog: onelake
+    mode: read_write
+    auth: oauth
+    notes: Bi-directional access GA January 2026
+
+notes: >-
+  Set STORAGE_SERIALIZATION_POLICY = 'COMPATIBLE' for cross-engine reads.
+  v3 preview March 2026 with deletion vectors, nanosecond timestamps, VARIANT,
+  GEOGRAPHY/GEOMETRY.
+
+last_verified: "2026-03-27"

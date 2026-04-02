@@ -1,0 +1,29 @@
+id: gravitino
+name: Apache Gravitino
+type: catalog
+vendor: Apache (incubating)
+open_source: true
+license: Apache 2.0
+website: https://gravitino.apache.org
+description: >
+  Federated metadata lake providing a unified view across heterogeneous
+  catalogs. Acts as an Iceberg REST proxy over Hive/JDBC backends.
+  Solves multi-catalog, multi-region metadata federation.
+rest_api: full
+vended_credentials: true
+multi_cloud:
+  - S3
+  - GCS
+  - ADLS
+  - Alibaba OSS
+view_support: partial
+multi_table_transactions: none
+version_control: false
+catalog_federation: full
+multi_format:
+  - Iceberg
+notes: >
+  v1.2.0 (March 2026) added scan planning offload — engines like DuckDB
+  and Spark can offload scan planning to Gravitino, reducing query latency.
+  Authorization for Iceberg view operations added in v1.2.0.
+last_verified: "2026-03-27"
