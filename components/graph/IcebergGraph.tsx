@@ -28,6 +28,7 @@ function drawDarkLabel(
 ): void {
   if (!data.label) return;
   const label = data.label;
+  const isDimmed = data.color === NODE_COLOR_DIMMED;
 
   const fontSize = settings.labelSize;
   const font = `${settings.labelWeight} ${fontSize}px ${settings.labelFont}`;
@@ -43,12 +44,12 @@ function drawDarkLabel(
   const boxX = data.x + data.size + gap;
   const boxY = data.y - boxHeight / 2;
 
-  context.fillStyle = "rgba(8, 8, 13, 0.85)";
+  context.fillStyle = isDimmed ? "rgba(8, 8, 13, 0.22)" : "rgba(8, 8, 13, 0.85)";
   context.beginPath();
   context.roundRect(boxX, boxY, boxWidth, boxHeight, 4);
   context.fill();
 
-  context.fillStyle = "#e8e8ed";
+  context.fillStyle = isDimmed ? "rgba(232, 232, 237, 0.15)" : "#e8e8ed";
   context.textBaseline = "middle";
   context.fillText(label, boxX + paddingX, data.y);
   context.textBaseline = "alphabetic";
@@ -97,8 +98,14 @@ const NODE_COLORS: Record<string, string> = {
   platform: "#5a8fd4",
 };
 
-const EDGE_COLOR_DEFAULT = "rgba(255,255,255,0)";
-const EDGE_COLOR_ACTIVE = "rgba(255,255,255,0.6)";
+const NODE_COLOR_DIMMED = "rgba(100,100,120,0.10)";
+const EDGE_COLOR_DEFAULT = "rgba(0,0,0,0)";
+
+const EDGE_MODE_COLORS: Record<string, string> = {
+  read_write: "#22916a",
+  read: "#4a7ec0",
+  write: "#b8891a",
+};
 const NODE_SIZE_CATALOG = 26;
 const NODE_SIZE_DEFAULT = 22;
 
@@ -175,6 +182,10 @@ function GraphLoader({ data }: { data: GraphPayload }) {
       graph.forEachNode((node) => {
         const base = basePositions[node];
         if (!base) return;
+        if (graph.getNodeAttribute(node, "dimmed")) {
+          graph.setNodeAttribute(node, "y", base.y);
+          return;
+        }
         const hash = node
           .split("")
           .reduce((a, c) => a + c.charCodeAt(0), 0);
@@ -228,6 +239,7 @@ function GraphEvents({
               ? NODE_SIZE_CATALOG
               : NODE_SIZE_DEFAULT
           );
+          graph.setNodeAttribute(node, "dimmed", false);
         });
         graph.forEachEdge((edge) => {
           graph.setEdgeAttribute(edge, "color", EDGE_COLOR_DEFAULT);
@@ -248,6 +260,7 @@ function GraphEvents({
             NODE_COLORS[graph.getNodeAttribute(node, "nodeType")] || "#6b7280"
           );
           graph.setNodeAttribute(node, "zIndex", 1);
+          graph.setNodeAttribute(node, "dimmed", false);
           const baseSize =
             graph.getNodeAttribute(node, "nodeType") === "catalog"
               ? NODE_SIZE_CATALOG
@@ -258,8 +271,9 @@ function GraphEvents({
             node === activeNode ? baseSize + 4 : baseSize
           );
         } else {
-          graph.setNodeAttribute(node, "color", "rgba(100,100,120,0.12)");
+          graph.setNodeAttribute(node, "color", NODE_COLOR_DIMMED);
           graph.setNodeAttribute(node, "zIndex", 0);
+          graph.setNodeAttribute(node, "dimmed", true);
           graph.setNodeAttribute(node, "size", NODE_SIZE_DEFAULT - 2);
         }
       });
@@ -268,10 +282,11 @@ function GraphEvents({
         const src = graph.source(edge);
         const tgt = graph.target(edge);
         if (src === activeNode || tgt === activeNode) {
-          graph.setEdgeAttribute(edge, "color", EDGE_COLOR_ACTIVE);
-          graph.setEdgeAttribute(edge, "size", 2.5);
+          const mode = graph.getEdgeAttribute(edge, "mode") || "read_write";
+          graph.setEdgeAttribute(edge, "color", EDGE_MODE_COLORS[mode] || EDGE_MODE_COLORS.read_write);
+          graph.setEdgeAttribute(edge, "size", 3);
         } else {
-          graph.setEdgeAttribute(edge, "color", "rgba(255,255,255,0)");
+          graph.setEdgeAttribute(edge, "color", "rgba(0,0,0,0)");
           graph.setEdgeAttribute(edge, "size", 0);
         }
       });
@@ -283,24 +298,28 @@ function GraphEvents({
 
   const selectNode = useCallback(
     (nodeId: string | null) => {
+      const graph = sigma.getGraph();
       if (nodeId && selectedNodeRef.current === nodeId) {
         selectedNodeRef.current = null;
         setSelectedNode(null);
         onSelectNode(null);
         handleNodeHighlight(null);
+        graph.setAttribute("hasSelection", false);
       } else if (nodeId) {
         selectedNodeRef.current = nodeId;
         setSelectedNode(nodeId);
         onSelectNode(nodeId);
         handleNodeHighlight(nodeId);
+        graph.setAttribute("hasSelection", true);
       } else {
         selectedNodeRef.current = null;
         setSelectedNode(null);
         onSelectNode(null);
         handleNodeHighlight(null);
+        graph.setAttribute("hasSelection", false);
       }
     },
-    [onSelectNode, handleNodeHighlight]
+    [onSelectNode, handleNodeHighlight, sigma]
   );
 
   useEffect(() => {
