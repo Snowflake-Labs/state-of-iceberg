@@ -8,11 +8,8 @@ import {
 } from "@react-sigma/core";
 import "@react-sigma/core/lib/style.css";
 import Graph from "graphology";
-import forceAtlas2 from "graphology-layout-forceatlas2";
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -21,7 +18,6 @@ import {
 import type { GraphPayload, SerializedNode } from "@/lib/graph-data";
 import { NodeDetailDrawer } from "./NodeDetailDrawer";
 import { ColumnHeaders } from "./ColumnHeaders";
-import { NodeTooltip } from "./NodeTooltip";
 
 import type { Settings } from "sigma/settings";
 
@@ -106,28 +102,9 @@ const EDGE_COLOR_ACTIVE = "rgba(255,255,255,0.6)";
 const NODE_SIZE_CATALOG = 26;
 const NODE_SIZE_DEFAULT = 22;
 
-type DragState = {
-  draggedNode: React.RefObject<string | null>;
-  basePositions: React.RefObject<Record<string, { x: number; y: number }>>;
-};
-
-const DragContext = createContext<DragState | null>(null);
-
-function seededRandom(seed: string): () => number {
-  let h = 0;
-  for (let i = 0; i < seed.length; i++) {
-    h = (Math.imul(31, h) + seed.charCodeAt(i)) | 0;
-  }
-  return () => {
-    h = (Math.imul(h ^ (h >>> 16), 0x45d9f3b) + 0x1234567) | 0;
-    return ((h >>> 0) / 0xffffffff);
-  };
-}
-
 function GraphLoader({ data }: { data: GraphPayload }) {
   const loadGraph = useLoadGraph();
   const sigma = useSigma();
-  const dragState = useContext(DragContext)!;
 
   useEffect(() => {
     const graph = new Graph();
@@ -180,8 +157,9 @@ function GraphLoader({ data }: { data: GraphPayload }) {
 
     loadGraph(graph);
 
+    const basePositions: Record<string, { x: number; y: number }> = {};
     graph.forEachNode((node) => {
-      dragState.basePositions.current[node] = {
+      basePositions[node] = {
         x: graph.getNodeAttribute(node, "x"),
         y: graph.getNodeAttribute(node, "y"),
       };
@@ -195,7 +173,7 @@ function GraphLoader({ data }: { data: GraphPayload }) {
       const elapsed = (timestamp - startTime) / 1000;
 
       graph.forEachNode((node) => {
-        const base = dragState.basePositions.current[node];
+        const base = basePositions[node];
         if (!base) return;
         const hash = node
           .split("")
@@ -210,7 +188,7 @@ function GraphLoader({ data }: { data: GraphPayload }) {
     animFrame = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animFrame);
-  }, [loadGraph, sigma, data, dragState]);
+  }, [loadGraph, sigma, data]);
 
   return null;
 }
@@ -413,14 +391,7 @@ export function IcebergGraph({
   allNodeData: Record<string, SerializedNode>;
 }) {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
-  const draggedNode = useRef<string | null>(null);
-  const basePositions = useRef<Record<string, { x: number; y: number }>>({});
   const graphEventsRef = useRef<GraphEventsHandle | null>(null);
-
-  const dragState = useMemo(
-    () => ({ draggedNode, basePositions }),
-    []
-  );
 
   const selectedNode = useMemo(
     () => (selectedNodeId ? allNodeData[selectedNodeId] : null),
@@ -447,19 +418,9 @@ export function IcebergGraph({
       }));
   }, [selectedNodeId, data.edges, allNodeData]);
 
-  const edgeCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    for (const edge of data.edges) {
-      counts[edge.source] = (counts[edge.source] || 0) + 1;
-      counts[edge.target] = (counts[edge.target] || 0) + 1;
-    }
-    return counts;
-  }, [data.edges]);
-
   const drawerOpen = !!selectedNode;
 
   return (
-    <DragContext.Provider value={dragState}>
       <div className="relative w-full h-full graph-container" style={{ display: "flex" }}>
         <div
           style={{
@@ -520,6 +481,5 @@ export function IcebergGraph({
           </div>
         )}
       </div>
-    </DragContext.Provider>
   );
 }

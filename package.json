@@ -9,7 +9,12 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "keywords": ["apache-iceberg", "interoperability", "lakehouse", "data-engineering"],
+  "keywords": [
+    "apache-iceberg",
+    "interoperability",
+    "lakehouse",
+    "data-engineering"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -19,7 +24,6 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "graphology": "^0.26.0",
-    "graphology-layout-forceatlas2": "^0.10.1",
     "graphology-types": "^0.24.8",
     "next": "^16.2.1",
     "postcss": "^8.5.8",

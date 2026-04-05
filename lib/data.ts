@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import yaml from "yaml";
-import type { PlatformData, CatalogData, NodeType } from "./types";
+import type { PlatformData, CatalogData } from "./types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 
@@ -61,34 +61,3 @@ export function getGraphEdges(): GraphEdge[] {
   return edges;
 }
 
-export function getNodeById(
-  id: string
-): PlatformData | CatalogData | undefined {
-  return getAllNodes().find((n) => n.id === id);
-}
-
-export function getNodeColor(type: NodeType | "catalog"): string {
-  switch (type) {
-    case "catalog":
-      return "#f59e0b";
-    case "engine":
-      return "#10b981";
-    case "platform":
-      return "#3b82f6";
-    default:
-      return "#6b7280";
-  }
-}
-
-export function getNodeTypeLabel(type: NodeType | "catalog"): string {
-  switch (type) {
-    case "catalog":
-      return "Catalog";
-    case "engine":
-      return "Engine";
-    case "platform":
-      return "Platform";
-    default:
-      return "Unknown";
-  }
-}
