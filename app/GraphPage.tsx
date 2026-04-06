@@ -2,6 +2,8 @@
 
 import dynamic from "next/dynamic";
 import type { GraphPayload, SerializedNode } from "@/lib/graph-data";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 const IcebergGraph = dynamic(
   () =>
@@ -18,43 +20,7 @@ export function GraphPage({
 }) {
   return (
     <div style={{ height: "100vh", width: "100vw", display: "flex", flexDirection: "column", backgroundColor: "#08080d" }}>
-      <header
-        style={{
-          flexShrink: 0,
-          padding: "20px 36px",
-          borderBottom: "1px solid rgba(255,255,255,0.04)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          backgroundColor: "rgba(8,8,13,0.8)",
-          backdropFilter: "blur(8px)",
-          zIndex: 10,
-        }}
-      >
-        <div>
-          <h1
-            style={{
-              fontSize: "22px",
-              fontWeight: 700,
-              color: "#ffffff",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.2,
-            }}
-          >
-            The State of Iceberg
-          </h1>
-          <p
-            style={{
-              fontSize: "14px",
-              color: "#b0b0c8",
-              marginTop: "6px",
-              letterSpacing: "0.01em",
-            }}
-          >
-            Apache Iceberg interoperability across the modern data ecosystem
-          </p>
-        </div>
-      </header>
+      <Header />
 
       <main style={{ flex: 1, position: "relative", overflow: "hidden" }}>
         <IcebergGraph data={data} allNodeData={allNodeData} />
@@ -74,8 +40,8 @@ export function GraphPage({
         >
           <p
             style={{
-            fontSize: "12px",
-            color: "#b0b0c8",
+              fontSize: "12px",
+              color: "#b0b0c8",
               fontWeight: 500,
               letterSpacing: "0.02em",
             }}
@@ -85,24 +51,7 @@ export function GraphPage({
         </div>
       </main>
 
-      <footer
-        style={{
-          flexShrink: 0,
-          padding: "12px 36px",
-          borderTop: "1px solid rgba(255,255,255,0.04)",
-          backgroundColor: "rgba(8,8,13,0.9)",
-        }}
-      >
-        <p
-          style={{
-            fontSize: "11px",
-            color: "#4a4a68",
-            lineHeight: 1.6,
-          }}
-        >
-          This is an independent community resource and is not affiliated with or endorsed by any vendor listed. Capabilities should be verified against official documentation before making architectural decisions.
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }
