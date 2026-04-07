@@ -58,6 +58,7 @@ catalog_integrations:
   - catalog: unity_catalog
     mode: read_write
     auth: oauth
+    notes: Write support on AWS and Azure (April 2026)
   - catalog: s3_tables
     mode: read
     notes: Via Glue federation

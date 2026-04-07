@@ -8,6 +8,7 @@ import {
 } from "@react-sigma/core";
 import "@react-sigma/core/lib/style.css";
 import Graph from "graphology";
+import { createEdgeArrowProgram, createEdgeDoubleArrowProgram } from "sigma/rendering";
 import {
   useCallback,
   useEffect,
@@ -106,6 +107,10 @@ const EDGE_MODE_COLORS: Record<string, string> = {
   read: "#4a7ec0",
   write: "#b8891a",
 };
+
+const arrowOptions = { lengthToThicknessRatio: 2.5, widenessToThicknessRatio: 3 };
+const CustomEdgeArrowProgram = createEdgeArrowProgram(arrowOptions);
+const CustomEdgeDoubleArrowProgram = createEdgeDoubleArrowProgram(arrowOptions);
 const NODE_SIZE_CATALOG = 26;
 const NODE_SIZE_DEFAULT = 22;
 
@@ -153,11 +158,33 @@ function GraphLoader({ data }: { data: GraphPayload }) {
       if (graph.hasNode(edge.source) && graph.hasNode(edge.target)) {
         const key = `${edge.source}-${edge.target}`;
         if (!graph.hasEdge(key)) {
-          graph.addEdgeWithKey(key, edge.source, edge.target, {
-            color: EDGE_COLOR_DEFAULT,
-            size: 1.5,
-            mode: edge.mode,
-          });
+          const mode = edge.mode || "read_write";
+          const sourceType = graph.getNodeAttribute(edge.source, "nodeType");
+          const platformOrEngine = sourceType === "catalog" ? edge.target : edge.source;
+          const catalog = sourceType === "catalog" ? edge.source : edge.target;
+
+          if (mode === "read_write") {
+            graph.addEdgeWithKey(key, platformOrEngine, catalog, {
+              color: EDGE_COLOR_DEFAULT,
+              size: 1.5,
+              type: "double-arrow",
+              mode,
+            });
+          } else if (mode === "write") {
+            graph.addEdgeWithKey(key, platformOrEngine, catalog, {
+              color: EDGE_COLOR_DEFAULT,
+              size: 1.5,
+              type: "arrow",
+              mode,
+            });
+          } else {
+            graph.addEdgeWithKey(key, catalog, platformOrEngine, {
+              color: EDGE_COLOR_DEFAULT,
+              size: 1.5,
+              type: "arrow",
+              mode,
+            });
+          }
         }
       }
     }
@@ -470,7 +497,11 @@ export function IcebergGraph({
               renderEdgeLabels: false,
               enableEdgeEvents: false,
               stagePadding: 60,
-              defaultEdgeType: "line",
+              defaultEdgeType: "arrow",
+              edgeProgramClasses: {
+                arrow: CustomEdgeArrowProgram,
+                "double-arrow": CustomEdgeDoubleArrowProgram,
+              },
               allowInvalidContainer: true,
               defaultDrawNodeLabel: drawDarkLabel,
               defaultDrawNodeHover: drawHoverLabel,
