@@ -17,15 +17,15 @@ function readYamlDir<T>(subdir: string): T[] {
     });
 }
 
-export function getCatalogs(): CatalogData[] {
+function getCatalogs(): CatalogData[] {
   return readYamlDir<CatalogData>("catalogs");
 }
 
-export function getEngines(): PlatformData[] {
+function getEngines(): PlatformData[] {
   return readYamlDir<PlatformData>("engines");
 }
 
-export function getPlatforms(): PlatformData[] {
+function getPlatforms(): PlatformData[] {
   return readYamlDir<PlatformData>("platforms");
 }
 

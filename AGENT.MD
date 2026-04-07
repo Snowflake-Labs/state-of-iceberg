@@ -27,8 +27,6 @@ components/graph/
   IcebergGraph.tsx    — Main graph component (Sigma container, event handlers, layout)
   NodeDetailDrawer.tsx — Slide-out drawer with streaming description, spec badges, contextual connection sections
   ColumnHeaders.tsx   — "PLATFORMS" / "CATALOGS" / "ENGINES" labels above each column
-  GraphLegend.tsx     — Legend component (currently unused, removed from page)
-  NodeTooltip.tsx     — Hover tooltip component (currently unused, removed from graph)
 
 data/
   catalogs/           — One YAML per catalog (10 files)
