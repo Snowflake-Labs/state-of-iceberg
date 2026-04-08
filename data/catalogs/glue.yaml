@@ -8,8 +8,8 @@ description: >
   AWS-managed metadata catalog for Iceberg tables. Integrates with Athena,
   Redshift, and EMR. Includes automatic optimization for compaction,
   snapshot management, and orphan file cleanup.
-rest_api: none
-vended_credentials: false
+rest_api: full
+vended_credentials: true
 multi_cloud:
   - S3
 view_support: none
@@ -19,8 +19,10 @@ catalog_federation: full
 multi_format:
   - Iceberg
 notes: >
-  No native REST catalog endpoint — uses AWS SDK/Glue API. Catalog
+  Iceberg REST endpoint available via AWS Glue, authenticated with
+  SigV4. Supports Iceberg table spec v1 and v2 (default v2). Catalog
   federation GA (November 2025) for federating remote Iceberg catalogs
   with real-time metadata sync. Lake Formation integration for access
-  controls. View APIs not supported.
-last_verified: "2026-03-27"
+  controls. View APIs not supported. RenameTable only supported for
+  Redshift-managed tables.
+last_verified: "2026-04-08"

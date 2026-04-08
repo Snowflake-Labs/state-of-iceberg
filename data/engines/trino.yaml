@@ -62,6 +62,14 @@ catalog_integrations:
     mode: read_write
   - catalog: lakekeeper
     mode: read_write
+  - catalog: horizon
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: onelake
+    mode: read
 
 notes: >-
   Copy-on-write not supported (open issue). Iceberg views support is partial.

@@ -52,8 +52,23 @@ catalog_integrations:
     mode: read
   - catalog: polaris
     mode: read
-    notes: via REST catalog
   - catalog: unity_catalog
+    mode: read
+  - catalog: hms
+    mode: read
+  - catalog: nessie
+    mode: read
+  - catalog: s3_tables
+    mode: read
+  - catalog: lakekeeper
+    mode: read
+  - catalog: gravitino
+    mode: read
+  - catalog: biglake
+    mode: read
+  - catalog: horizon
+    mode: read
+  - catalog: onelake
     mode: read
 
 notes: >-

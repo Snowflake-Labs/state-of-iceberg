@@ -65,6 +65,10 @@ catalog_integrations:
     mode: read_write
   - catalog: biglake
     mode: read_write
+  - catalog: horizon
+    mode: read_write
+  - catalog: onelake
+    mode: read
 
 notes: >-
   Iceberg views supported in Spark 4.0+. Maintenance via rewrite_data_files,

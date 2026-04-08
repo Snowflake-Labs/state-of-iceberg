@@ -8,8 +8,8 @@ description: >
   Fully managed, serverless Iceberg metastore for Google Cloud. Unified
   metadata management across BigQuery, Spark, Flink, and other Iceberg
   engines. REST Catalog API support in preview.
-rest_api: preview
-vended_credentials: false
+rest_api: full
+vended_credentials: true
 multi_cloud:
   - GCS
 view_support: none
@@ -19,8 +19,11 @@ catalog_federation: none
 multi_format:
   - Iceberg
 notes: >
-  GA as of May 2025. External engines access via BigLakeCatalog plugin
-  (org.apache.iceberg.gcp.biglake.BigLakeCatalog) for Iceberg library
-  versions 0.14.0-1.9.1. Custom plugin is less universal than standard
-  REST endpoint.
-last_verified: "2026-03-27"
+  Iceberg REST Catalog GA. Endpoint at
+  biglake.googleapis.com/iceberg/v1beta/restcatalog. Supports credential
+  vending for fine-grained access control. Integrated with Dataplex
+  Universal Catalog for lineage, data quality, and discoverability.
+  Cross-region replication supported. Legacy BigLakeCatalog plugin
+  (org.apache.iceberg.gcp.biglake.BigLakeCatalog) still available for
+  Iceberg library versions 0.14.0-1.9.1.
+last_verified: "2026-04-08"

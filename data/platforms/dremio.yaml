@@ -57,6 +57,8 @@ catalog_integrations:
     mode: read_write
   - catalog: s3_tables
     mode: read_write
+  - catalog: horizon
+    mode: read_write
 
 notes: >-
   Built-in Open Catalog (March 2026) - zero-config managed Iceberg catalog.

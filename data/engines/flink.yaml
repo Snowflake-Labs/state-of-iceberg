@@ -54,6 +54,26 @@ catalog_integrations:
     mode: read_write
   - catalog: polaris
     mode: read_write
+  - catalog: nessie
+    mode: read_write
+  - catalog: unity_catalog
+    mode: read_write
+  - catalog: horizon
+    mode: read_write
+  - catalog: nessie
+    mode: read_write
+  - catalog: unity_catalog
+    mode: read_write
+  - catalog: s3_tables
+    mode: read_write
+  - catalog: lakekeeper
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: onelake
+    mode: read
 
 notes: >-
   Update via upsert mode only. Delete via DataStream API only. Branching supports

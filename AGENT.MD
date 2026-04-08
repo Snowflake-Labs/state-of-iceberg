@@ -27,8 +27,17 @@ components/graph/
   IcebergGraph.tsx    — Main graph component (Sigma container, event handlers, layout)
   NodeDetailDrawer.tsx — Slide-out drawer with streaming description, spec badges, contextual connection sections
   ColumnHeaders.tsx   — "PLATFORMS" / "CATALOGS" / "ENGINES" labels above each column
-  GraphLegend.tsx     — Legend component (currently unused, removed from page)
-  NodeTooltip.tsx     — Hover tooltip component (currently unused, removed from graph)
+
+components/architect/
+  ArchitectCanvas.tsx — Architect mode graph (Sigma container, edge labels, conflict indicators, dashed edges)
+  ArchitectPanel.tsx  — Side panel with component pills, constraint filters, tabs
+
+components/layout/
+  Header.tsx          — Shared header with Explore/Architect navigation
+
+app/architect/
+  page.tsx            — Server component that loads data for architect mode
+  ArchitectPage.tsx   — Client component with canvas, panel, toolbar
 
 data/
   catalogs/           — One YAML per catalog (10 files)
@@ -64,7 +73,7 @@ lib/
 - **Deterministic layout:** Initial positions use a seeded PRNG (`seededRandom("state-of-iceberg-v1")`), but with the column layout this is less relevant since positions are fixed.
 - **Zoom:** Disabled (camera ratio locked at 1:1). Panning is still enabled.
 - **Click handling:** `clickNode` selects/deselects. `clickStage` checks for label hit testing (clicking on a label text = clicking the node) before deselecting. Label hit testing uses approximate bounding boxes.
-- **Selection:** Managed via `selectedNodeRef` (ref for synchronous access in event handlers) + `selectedNode` (state for React rendering). The `GraphEventsHandle` ref exposes `selectNode()` for the drawer to trigger graph selection when connection rows are clicked.
+- **Selection:** Managed via `selectedNodeRef` (ref for synchronous access in event handlers) in `GraphEvents`. The parent `IcebergGraph` component uses `selectedNodeId` state for React rendering. The `GraphEventsHandle` ref exposes `selectNode()` for the drawer to trigger graph selection when connection rows are clicked.
 
 ## Drawer Behavior
 
@@ -77,6 +86,16 @@ lib/
 - **Clickable connections:** Every connection row is clickable. Clicking navigates the graph to that node (updates graph highlighting + drawer content). Enables traversal chains: Snowflake → Polaris → Trino → HMS → Hive.
 - **Mode badges:** READ (blue), READ / WRITE (green), WRITE (amber) — colored pill badges.
 - **Open Source badge:** Purple treatment with ✦ symbol.
+
+## Edge Existence Criteria
+
+An edge (entry in `catalog_integrations`) should exist between an engine/platform and a catalog if **either** condition is met:
+
+1. **Native/SDK connector** — The engine/platform has a purpose-built, vendor-specific connector for that catalog (e.g., Spark's `HiveCatalog`, Athena's native Glue integration, Fabric's native OneLake integration).
+
+2. **REST interoperability** — The engine/platform documents a **generic Iceberg REST catalog client** AND the catalog documents an **Iceberg REST catalog endpoint**. If both sides implement the standard, the edge is valid.
+
+The absence of a per-pairing integration guide is **not** a reason to omit an edge. The Iceberg REST Catalog specification exists so that any compliant client can talk to any compliant server. Nuances like authentication mechanisms (SigV4 vs OAuth2), preview status, or read-only limitations are **constraints on the edge** (expressed via `mode`, `auth`, or `notes`), not reasons to exclude it. Write-only engines (Kafka Connect, RisingWave) should not connect to read-only catalogs (OneLake) since the edge would be nonsensical.
 
 ## Data Model
 
@@ -121,7 +140,7 @@ See `design-notes.md` for the full build order and deferred features. Key remain
 ## Style Guidelines
 
 - Use **inline styles** for all component styling (Tailwind classes were unreliable on the dark theme)
-- Secondary text colors: `#b0b0c8` for readable muted text, `#7878a0` for section headers, `#6a6a88` for subtitles
+- Secondary text colors: `#b0b0c8` for readable muted text, `#7878a0` for section headers and subtitles (minimum WCAG AA floor at 4.5:1 on dark backgrounds)
 - Node colors (desaturated for dark mode): catalog `#d4942a`, engine `#2da87a`, platform `#5a8fd4`
 - Column header colors (brighter): `#7eaae0`, `#e0ad4a`, `#4dc9a0`
 - Background: radial gradient defined in `globals.css` via `.graph-container`

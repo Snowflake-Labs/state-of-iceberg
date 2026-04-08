@@ -1,0 +1,28 @@
+id: horizon
+name: Horizon Catalog
+type: catalog
+vendor: Snowflake
+open_source: false
+website: https://docs.snowflake.com/en/user-guide/tables-iceberg-access-using-external-query-engine-snowflake-horizon
+description: >
+  Built-in Iceberg REST endpoint available in every Snowflake account.
+  External engines read and write Snowflake-managed Iceberg tables using
+  Snowflake users, roles, and policies. Integrates Apache Polaris internally
+  for REST protocol interoperability.
+rest_api: full
+vended_credentials: true
+multi_cloud:
+  - S3
+  - ADLS
+view_support: unknown
+multi_table_transactions: unknown
+version_control: false
+catalog_federation: partial
+multi_format:
+  - Iceberg
+notes: >
+  Read access GA February 2026. Write access preview March 2026. API
+  requests billed at 0.5 credit per million calls (billing begins mid-2026).
+  Glue and Polaris can federate with Horizon. Private connectivity
+  supported for S3 and ADLS.
+last_verified: "2026-04-04"
