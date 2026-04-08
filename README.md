@@ -67,5 +67,3 @@ To update a platform's capabilities:
 - [Tailwind CSS](https://tailwindcss.com) (styling)
 
 ## License
-
-MIT
