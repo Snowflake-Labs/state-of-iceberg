@@ -69,6 +69,16 @@ catalog_integrations:
   - catalog: horizon
     mode: read_write
     notes: Built-in Iceberg REST endpoint for external engine access
+  - catalog: nessie
+    mode: read_write
+  - catalog: lakekeeper
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: hms
+    mode: read_write
 
 notes: >-
   Set STORAGE_SERIALIZATION_POLICY = 'COMPATIBLE' for cross-engine reads.
