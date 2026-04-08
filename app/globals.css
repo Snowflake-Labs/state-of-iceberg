@@ -2,24 +2,7 @@
 
 :root {
   --bg-primary: #0a0a0f;
-  --bg-secondary: #12121a;
-  --bg-tertiary: #1a1a26;
-  --bg-elevated: #22222e;
   --text-primary: #e8e8ed;
-  --text-secondary: #9898a8;
-  --text-muted: #5c5c6e;
-  --border: #2a2a3a;
-  --border-subtle: #1e1e2e;
-
-  --color-catalog: #f59e0b;
-  --color-engine: #10b981;
-  --color-platform: #3b82f6;
-
-  --status-full: #22c55e;
-  --status-partial: #f59e0b;
-  --status-none: #4b5563;
-  --status-unknown: #374151;
-
   --accent: #8b5cf6;
 }
 
@@ -46,11 +29,6 @@ body {
 ::selection {
   background-color: var(--accent);
   color: white;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
 }
 
 .graph-container {

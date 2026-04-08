@@ -231,7 +231,7 @@ function GraphLoader({ data }: { data: GraphPayload }) {
   return null;
 }
 
-export type GraphEventsHandle = {
+type GraphEventsHandle = {
   selectNode: (nodeId: string | null) => void;
 };
 
@@ -244,7 +244,6 @@ function GraphEvents({
 }) {
   const registerEvents = useRegisterEvents();
   const sigma = useSigma();
-  const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const selectedNodeRef = useRef<string | null>(null);
 
   const handleNodeHighlight = useCallback(
@@ -328,19 +327,16 @@ function GraphEvents({
       const graph = sigma.getGraph();
       if (nodeId && selectedNodeRef.current === nodeId) {
         selectedNodeRef.current = null;
-        setSelectedNode(null);
         onSelectNode(null);
         handleNodeHighlight(null);
         graph.setAttribute("hasSelection", false);
       } else if (nodeId) {
         selectedNodeRef.current = nodeId;
-        setSelectedNode(nodeId);
         onSelectNode(nodeId);
         handleNodeHighlight(nodeId);
         graph.setAttribute("hasSelection", true);
       } else {
         selectedNodeRef.current = null;
-        setSelectedNode(null);
         onSelectNode(null);
         handleNodeHighlight(null);
         graph.setAttribute("hasSelection", false);
@@ -463,8 +459,6 @@ export function IcebergGraph({
         mode: e.mode,
       }));
   }, [selectedNodeId, data.edges, allNodeData]);
-
-  const drawerOpen = !!selectedNode;
 
   return (
       <div className="relative w-full h-full graph-container" style={{ display: "flex" }}>
