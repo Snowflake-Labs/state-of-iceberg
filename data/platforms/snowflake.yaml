@@ -34,8 +34,8 @@ capabilities:
   hidden_partitioning: full
   time_travel: full
   position_deletes: full
-  equality_deletes: full
-  merge_on_read: full
+  equality_deletes: none
+  merge_on_read: partial
   copy_on_write: full
   branching_tagging: none
   iceberg_views: none
@@ -56,9 +56,9 @@ catalog_integrations:
     mode: read_write
     auth: sigv4
   - catalog: unity_catalog
-    mode: read_write
+    mode: read
     auth: oauth
-    notes: Write support on AWS and Azure (April 2026)
+    notes: Read-only via REST Catalog API. Write support expected on AWS and Azure (April 2026)
   - catalog: s3_tables
     mode: read
     notes: Via Glue federation
@@ -66,10 +66,25 @@ catalog_integrations:
     mode: read_write
     auth: oauth
     notes: Bi-directional access GA January 2026
+  - catalog: horizon
+    mode: read_write
+    notes: Built-in Iceberg REST endpoint for external engine access
+  - catalog: nessie
+    mode: read_write
+  - catalog: lakekeeper
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: hms
+    mode: read_write
 
 notes: >-
   Set STORAGE_SERIALIZATION_POLICY = 'COMPATIBLE' for cross-engine reads.
   v3 preview March 2026 with deletion vectors, nanosecond timestamps, VARIANT,
-  GEOGRAPHY/GEOMETRY.
+  GEOGRAPHY/GEOMETRY. Snowflake uses copy-on-write exclusively for managed tables;
+  merge-on-read supported only for externally managed Iceberg tables. Equality deletes
+  are not supported — Snowflake uses copy-on-write for all DELETE operations.
 
 last_verified: "2026-03-27"

@@ -56,6 +56,18 @@ catalog_integrations:
     mode: write
   - catalog: glue
     mode: write
+  - catalog: unity_catalog
+    mode: write
+  - catalog: s3_tables
+    mode: write
+  - catalog: lakekeeper
+    mode: write
+  - catalog: gravitino
+    mode: write
+  - catalog: biglake
+    mode: write
+  - catalog: horizon
+    mode: write
 
 notes: >-
   Official Apache Iceberg sink connector. Exactly-once delivery semantics.

@@ -56,9 +56,23 @@ catalog_integrations:
     mode: read_write
   - catalog: unity_catalog
     mode: read_write
+  - catalog: glue
+    mode: read_write
+    notes: Via ENDPOINT_TYPE 'glue' or SigV4 authorization
   - catalog: onelake
     mode: read
-    notes: Via OneLake REST Catalog API
+  - catalog: horizon
+    mode: read_write
+  - catalog: hms
+    mode: read_write
+  - catalog: glue
+    mode: read_write
+  - catalog: nessie
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
 
 notes: >-
   Write support limited to non-partitioned, non-sorted tables. Browser support

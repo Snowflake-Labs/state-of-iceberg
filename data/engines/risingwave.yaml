@@ -50,7 +50,6 @@ maintenance:
 catalog_integrations:
   - catalog: polaris
     mode: write
-    notes: via REST catalog
   - catalog: glue
     mode: write
   - catalog: hms
@@ -60,6 +59,14 @@ catalog_integrations:
   - catalog: unity_catalog
     mode: write
   - catalog: lakekeeper
+    mode: write
+  - catalog: nessie
+    mode: write
+  - catalog: gravitino
+    mode: write
+  - catalog: biglake
+    mode: write
+  - catalog: horizon
     mode: write
 
 notes: >-

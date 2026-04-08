@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import type { SerializedNode } from "@/lib/graph-data";
 
 type Connection = {
@@ -9,58 +8,6 @@ type Connection = {
   nodeType: string;
   mode: "read" | "write" | "read_write";
 };
-
-const seenNodes = new Set<string>();
-
-function useStreamingText(
-  text: string,
-  nodeId: string
-): { displayedText: string; isStreaming: boolean } {
-  const [wordCount, setWordCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const wordsRef = useRef<string[]>([]);
-
-  useEffect(() => {
-    const alreadySeen = seenNodes.has(nodeId);
-    const words = text.split(" ").filter(Boolean);
-    wordsRef.current = words;
-
-    if (alreadySeen) {
-      setWordCount(words.length);
-      setStarted(true);
-      return;
-    }
-
-    setWordCount(0);
-    setStarted(false);
-
-    const delayTimer = setTimeout(() => {
-      setStarted(true);
-      let i = 0;
-      const interval = setInterval(() => {
-        i++;
-        if (i >= words.length) {
-          setWordCount(words.length);
-          seenNodes.add(nodeId);
-          clearInterval(interval);
-        } else {
-          setWordCount(i);
-        }
-      }, 75);
-    }, 300);
-
-    return () => {
-      clearTimeout(delayTimer);
-    };
-  }, [text, nodeId]);
-
-  const displayedText = started
-    ? wordsRef.current.slice(0, wordCount).join(" ")
-    : "";
-  const isStreaming = started && wordCount < wordsRef.current.length;
-
-  return { displayedText, isStreaming };
-}
 
 const TYPE_BG: Record<string, string> = {
   catalog: "bg-amber-400/10 text-amber-400 border-amber-400/25",
@@ -254,7 +201,6 @@ export function NodeDetailDrawer({
   onClickNode?: (nodeId: string) => void;
 }) {
   const typeBg = TYPE_BG[node.type] || "bg-gray-400/10 text-gray-400 border-gray-400/20";
-  const { displayedText } = useStreamingText(node.description, node.id);
 
   const sortedConnections = [...connections].sort((a, b) => {
     const order: Record<string, number> = { catalog: 0, engine: 1, platform: 2 };
@@ -395,7 +341,7 @@ export function NodeDetailDrawer({
             marginBottom: "32px",
           }}
         >
-          {displayedText}
+          {node.description}
         </p>
 
         {/* Spec Version */}

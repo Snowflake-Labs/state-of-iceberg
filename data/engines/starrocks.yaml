@@ -55,9 +55,22 @@ catalog_integrations:
     mode: read_write
   - catalog: polaris
     mode: read_write
-    notes: via REST catalog
   - catalog: lakekeeper
     mode: read_write
+  - catalog: nessie
+    mode: read_write
+  - catalog: unity_catalog
+    mode: read_write
+  - catalog: s3_tables
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: horizon
+    mode: read_write
+  - catalog: onelake
+    mode: read
 
 notes: >-
   Read-side schema evolution and hidden partitioning. Position and equality deletes
