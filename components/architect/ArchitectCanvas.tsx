@@ -226,7 +226,7 @@ function CanvasGraph({
         if (!graph.hasEdge(key)) {
           const mode = edge.mode || "read_write";
           const sourceType = graph.getNodeAttribute(edge.source, "nodeType");
-          const targetType = graph.getNodeAttribute(edge.target, "nodeType");
+
 
           // determine direction: platform/engine is source, catalog is target
           const platformOrEngine = sourceType === "catalog" ? edge.target : edge.source;
@@ -482,7 +482,6 @@ function ConflictToast({
   x: number;
   y: number;
   reasons: string[];
-  isSingle: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -613,7 +612,6 @@ function ConflictIndicators({
     <>
       {positions.map((item) => {
         const reasons = item.message.split("; ");
-        const isSingle = reasons.length === 1;
 
         return (
           <ConflictToast
@@ -621,7 +619,6 @@ function ConflictIndicators({
             x={item.x}
             y={item.y}
             reasons={reasons}
-            isSingle={isSingle}
           />
         );
       })}
@@ -632,7 +629,6 @@ function ConflictIndicators({
 export function ArchitectCanvas({
   nodes,
   edges,
-  allNodeData,
   onRemoveNode,
   conflictingNodeIds = {},
   missingEdges = [],
@@ -640,7 +636,6 @@ export function ArchitectCanvas({
 }: {
   nodes: SerializedNode[];
   edges: SerializedEdge[];
-  allNodeData: Record<string, SerializedNode>;
   onRemoveNode: (nodeId: string) => void;
   conflictingNodeIds?: Record<string, string>;
   missingEdges?: { source: string; target: string }[];

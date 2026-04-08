@@ -208,7 +208,6 @@ export function ArchitectPage({
           <ArchitectCanvas
             nodes={placedNodes}
             edges={placedEdges}
-            allNodeData={allNodeData}
             onRemoveNode={removeNode}
             conflictingNodeIds={conflictingNodeIds}
             missingEdges={missingEdges}

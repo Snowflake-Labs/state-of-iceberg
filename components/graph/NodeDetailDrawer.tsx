@@ -254,7 +254,7 @@ export function NodeDetailDrawer({
   onClickNode?: (nodeId: string) => void;
 }) {
   const typeBg = TYPE_BG[node.type] || "bg-gray-400/10 text-gray-400 border-gray-400/20";
-  const { displayedText, isStreaming } = useStreamingText(node.description, node.id);
+  const { displayedText } = useStreamingText(node.description, node.id);
 
   const sortedConnections = [...connections].sort((a, b) => {
     const order: Record<string, number> = { catalog: 0, engine: 1, platform: 2 };
