@@ -73,14 +73,6 @@ export function ArchitectPage({
     }
   }, [placedNodeIds, router]);
 
-  const addNode = useCallback((nodeId: string) => {
-    setPlacedNodeIds((prev) => {
-      const next = new Set(prev);
-      next.add(nodeId);
-      return next;
-    });
-  }, []);
-
   const removeNode = useCallback((nodeId: string) => {
     setPlacedNodeIds((prev) => {
       const next = new Set(prev);
