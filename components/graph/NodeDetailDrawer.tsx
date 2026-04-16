@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import type { SerializedNode } from "@/lib/graph-data";
 
 type Connection = {
@@ -79,14 +80,14 @@ function ConnectionSection({
         }}
       >
         {title}{" "}
-        <span style={{ color: "#5a5a78", marginLeft: "4px" }}>
+        <span style={{ color: "#7878a0", marginLeft: "4px" }}>
           ({items.length})
         </span>
       </h3>
       <p
         style={{
           fontSize: "13px",
-          color: "#6a6a88",
+          color: "#7878a0",
           marginBottom: "14px",
           lineHeight: 1.5,
         }}
@@ -181,7 +182,7 @@ function ConnectionSection({
               textAlign: "center",
             }}
           >
-            <p style={{ fontSize: "14px", color: "#6e6e90" }}>None</p>
+            <p style={{ fontSize: "14px", color: "#8080a0" }}>None</p>
           </div>
         )}
       </div>
@@ -200,6 +201,14 @@ export function NodeDetailDrawer({
   onClose: () => void;
   onClickNode?: (nodeId: string) => void;
 }) {
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   const typeBg = TYPE_BG[node.type] || "bg-gray-400/10 text-gray-400 border-gray-400/20";
 
   const sortedConnections = [...connections].sort((a, b) => {
@@ -208,7 +217,8 @@ export function NodeDetailDrawer({
   });
 
   return (
-    <div
+    <aside
+      aria-label={`${node.name} details`}
       style={{
         position: "absolute",
         right: 0,
@@ -296,7 +306,7 @@ export function NodeDetailDrawer({
         <button
           onClick={onClose}
           style={{
-            color: "#4a4a6a",
+            color: "#7878a0",
             padding: "8px",
             borderRadius: "8px",
             border: "none",
@@ -310,7 +320,7 @@ export function NodeDetailDrawer({
             e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.color = "#4a4a6a";
+            e.currentTarget.style.color = "#7878a0";
             e.currentTarget.style.backgroundColor = "transparent";
           }}
           aria-label="Close"
@@ -413,6 +423,6 @@ export function NodeDetailDrawer({
           </>
         )}
       </div>
-    </div>
+    </aside>
   );
 }

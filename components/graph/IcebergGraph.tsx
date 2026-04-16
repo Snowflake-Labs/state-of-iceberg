@@ -190,42 +190,6 @@ function GraphLoader({ data }: { data: GraphPayload }) {
     }
 
     loadGraph(graph);
-
-    const basePositions: Record<string, { x: number; y: number }> = {};
-    graph.forEachNode((node) => {
-      basePositions[node] = {
-        x: graph.getNodeAttribute(node, "x"),
-        y: graph.getNodeAttribute(node, "y"),
-      };
-    });
-
-    let animFrame: number;
-    let startTime: number | null = null;
-
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const elapsed = (timestamp - startTime) / 1000;
-
-      graph.forEachNode((node) => {
-        const base = basePositions[node];
-        if (!base) return;
-        if (graph.getNodeAttribute(node, "dimmed")) {
-          graph.setNodeAttribute(node, "y", base.y);
-          return;
-        }
-        const hash = node
-          .split("")
-          .reduce((a, c) => a + c.charCodeAt(0), 0);
-        const offset = hash * 0.3;
-        const y = base.y + Math.sin(elapsed * 0.4 + offset) * 3;
-        graph.setNodeAttribute(node, "y", y);
-      });
-      sigma.refresh();
-      animFrame = requestAnimationFrame(animate);
-    };
-    animFrame = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animFrame);
   }, [loadGraph, sigma, data]);
 
   return null;
@@ -245,7 +209,8 @@ function GraphEvents({
   const registerEvents = useRegisterEvents();
   const sigma = useSigma();
   const selectedNodeRef = useRef<string | null>(null);
-
+  const labelHoverRef = useRef<string | null>(null);
+  const isOverNodeRef = useRef(false);
   const handleNodeHighlight = useCallback(
     (activeNode: string | null) => {
       const graph = sigma.getGraph();
@@ -394,12 +359,15 @@ function GraphEvents({
   useEffect(() => {
     registerEvents({
       enterNode: (event) => {
+        isOverNodeRef.current = true;
+        labelHoverRef.current = null;
         if (!selectedNodeRef.current) {
           handleNodeHighlight(event.node);
         }
         sigma.getContainer().style.cursor = "pointer";
       },
       leaveNode: () => {
+        isOverNodeRef.current = false;
         if (!selectedNodeRef.current) {
           handleNodeHighlight(null);
         }
@@ -417,6 +385,27 @@ function GraphEvents({
           selectNode(hitNode);
         } else {
           selectNode(null);
+        }
+      },
+      mousemovebody: (event) => {
+        if (isOverNodeRef.current) return;
+
+        const hitNode = findNodeAtPosition(event.x, event.y);
+
+        if (hitNode) {
+          if (labelHoverRef.current !== hitNode) {
+            labelHoverRef.current = hitNode;
+            if (!selectedNodeRef.current) {
+              handleNodeHighlight(hitNode);
+            }
+            sigma.getContainer().style.cursor = "pointer";
+          }
+        } else if (labelHoverRef.current) {
+          labelHoverRef.current = null;
+          if (!selectedNodeRef.current) {
+            handleNodeHighlight(null);
+          }
+          sigma.getContainer().style.cursor = "default";
         }
       },
     });
@@ -461,7 +450,7 @@ export function IcebergGraph({
   }, [selectedNodeId, data.edges, allNodeData]);
 
   return (
-      <div className="relative w-full h-full graph-container" style={{ display: "flex" }}>
+      <div className="relative w-full h-full graph-container" style={{ display: "flex" }} role="region" aria-label="Interactive graph showing Apache Iceberg interoperability between platforms, catalogs, and engines">
         <div
           style={{
             flex: 1,
