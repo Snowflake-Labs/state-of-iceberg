@@ -73,14 +73,6 @@ export function ArchitectPage({
     }
   }, [placedNodeIds, router]);
 
-  const addNode = useCallback((nodeId: string) => {
-    setPlacedNodeIds((prev) => {
-      const next = new Set(prev);
-      next.add(nodeId);
-      return next;
-    });
-  }, []);
-
   const removeNode = useCallback((nodeId: string) => {
     setPlacedNodeIds((prev) => {
       const next = new Set(prev);
@@ -158,20 +150,26 @@ export function ArchitectPage({
     return conflicts;
   }, [placedNodeIds, allNodeData, constraints]);
 
-  const availableNodes = useMemo(
+  const allNodesByType = useMemo(
     () => ({
-      platforms: data.nodes.filter(
-        (n) => n.type === "platform" && !placedNodeIds.has(n.id)
-      ),
-      catalogs: data.nodes.filter(
-        (n) => n.type === "catalog" && !placedNodeIds.has(n.id)
-      ),
-      engines: data.nodes.filter(
-        (n) => n.type === "engine" && !placedNodeIds.has(n.id)
-      ),
+      platforms: data.nodes.filter((n) => n.type === "platform"),
+      catalogs: data.nodes.filter((n) => n.type === "catalog"),
+      engines: data.nodes.filter((n) => n.type === "engine"),
     }),
-    [data.nodes, placedNodeIds]
+    [data.nodes]
   );
+
+  const toggleNode = useCallback((nodeId: string) => {
+    setPlacedNodeIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(nodeId)) {
+        next.delete(nodeId);
+      } else {
+        next.add(nodeId);
+      }
+      return next;
+    });
+  }, []);
 
   const isNodeDisabled = useCallback(
     (node: SerializedNode) => !nodePassesConstraints(node, constraints),
@@ -306,8 +304,9 @@ export function ArchitectPage({
         </div>
 
         <ArchitectPanel
-          available={availableNodes}
-          onAddNode={addNode}
+          allNodes={allNodesByType}
+          placedNodeIds={placedNodeIds}
+          onToggleNode={toggleNode}
           constraints={constraints}
           onConstraintsChange={setConstraints}
           activeConstraintCount={activeConstraintCount}

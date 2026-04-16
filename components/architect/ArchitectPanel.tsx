@@ -21,15 +21,26 @@ function PillButton({
   color,
   onClick,
   disabled,
+  placed,
 }: {
   node: SerializedNode;
   color: string;
   onClick: () => void;
   disabled: boolean;
+  placed: boolean;
 }) {
+  const bgDefault = placed
+    ? `rgba(${parseInt(color.slice(1, 3), 16)},${parseInt(color.slice(3, 5), 16)},${parseInt(color.slice(5, 7), 16)},0.12)`
+    : disabled
+      ? "rgba(255,255,255,0.01)"
+      : "rgba(255,255,255,0.02)";
+  const borderDefault = placed
+    ? `1px solid ${color}40`
+    : "1px solid rgba(255,255,255,0.04)";
+
   return (
     <button
-      onClick={disabled ? undefined : onClick}
+      onClick={disabled && !placed ? undefined : onClick}
       style={{
         display: "flex",
         alignItems: "center",
@@ -37,29 +48,27 @@ function PillButton({
         width: "100%",
         padding: "10px 14px",
         borderRadius: "10px",
-        backgroundColor: disabled
-          ? "rgba(255,255,255,0.01)"
-          : "rgba(255,255,255,0.02)",
-        border: "1px solid rgba(255,255,255,0.04)",
-        color: disabled ? "#3a3a50" : "#d0d0e0",
+        backgroundColor: bgDefault,
+        border: borderDefault,
+        color: placed ? "#ffffff" : disabled ? "#3a3a50" : "#d0d0e0",
         fontSize: "14px",
-        fontWeight: 500,
-        cursor: disabled ? "not-allowed" : "pointer",
+        fontWeight: placed ? 600 : 500,
+        cursor: disabled && !placed ? "not-allowed" : "pointer",
         textAlign: "left",
         transition: "all 0.15s",
-        opacity: disabled ? 0.5 : 1,
+        opacity: disabled && !placed ? 0.5 : 1,
       }}
       onMouseEnter={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)";
-          e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+        if (!disabled || placed) {
+          e.currentTarget.style.backgroundColor = placed
+            ? `rgba(${parseInt(color.slice(1, 3), 16)},${parseInt(color.slice(3, 5), 16)},${parseInt(color.slice(5, 7), 16)},0.18)`
+            : "rgba(255,255,255,0.06)";
+          e.currentTarget.style.borderColor = placed ? `${color}60` : "rgba(255,255,255,0.1)";
         }
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.backgroundColor = disabled
-          ? "rgba(255,255,255,0.01)"
-          : "rgba(255,255,255,0.02)";
-        e.currentTarget.style.borderColor = "rgba(255,255,255,0.04)";
+        e.currentTarget.style.backgroundColor = bgDefault;
+        e.currentTarget.style.borderColor = placed ? `${color}40` : "rgba(255,255,255,0.04)";
       }}
     >
       <span
@@ -67,11 +76,23 @@ function PillButton({
           width: "8px",
           height: "8px",
           borderRadius: "50%",
-          backgroundColor: disabled ? "#3a3a50" : color,
+          backgroundColor: disabled && !placed ? "#3a3a50" : color,
           flexShrink: 0,
         }}
       />
       {node.name}
+      {placed && (
+        <span
+          style={{
+            marginLeft: "auto",
+            fontSize: "11px",
+            color: "#7878a0",
+            fontWeight: 500,
+          }}
+        >
+          ✓
+        </span>
+      )}
     </button>
   );
 }
@@ -149,7 +170,7 @@ function ConstraintsView({
         <p
           style={{
             fontSize: "12px",
-            color: "#6a6a88",
+            color: "#7878a0",
             marginBottom: "12px",
             lineHeight: 1.5,
           }}
@@ -179,7 +200,7 @@ function ConstraintsView({
                     ? "rgba(139,92,246,0.15)"
                     : "rgba(255,255,255,0.02)",
                 color:
-                  constraints.minSpec === opt.value ? "#a78bfa" : "#7878a0",
+                  constraints.minSpec === opt.value ? "#a78bfa" : "#8888a8",
               }}
             >
               {opt.label}
@@ -205,7 +226,7 @@ function ConstraintsView({
         <p
           style={{
             fontSize: "12px",
-            color: "#6a6a88",
+            color: "#7878a0",
             marginBottom: "12px",
             lineHeight: 1.5,
           }}
@@ -232,7 +253,7 @@ function ConstraintsView({
             backgroundColor: constraints.writeRequired
               ? "rgba(139,92,246,0.15)"
               : "rgba(255,255,255,0.02)",
-            color: constraints.writeRequired ? "#a78bfa" : "#7878a0",
+            color: constraints.writeRequired ? "#a78bfa" : "#8888a8",
           }}
         >
           {constraints.writeRequired ? "On" : "Off"}
@@ -256,7 +277,7 @@ function ConstraintsView({
         <p
           style={{
             fontSize: "12px",
-            color: "#6a6a88",
+            color: "#7878a0",
             marginBottom: "12px",
             lineHeight: 1.5,
           }}
@@ -283,7 +304,7 @@ function ConstraintsView({
             backgroundColor: constraints.openSourceOnly
               ? "rgba(139,92,246,0.15)"
               : "rgba(255,255,255,0.02)",
-            color: constraints.openSourceOnly ? "#a78bfa" : "#7878a0",
+            color: constraints.openSourceOnly ? "#a78bfa" : "#8888a8",
           }}
         >
           {constraints.openSourceOnly ? "On" : "Off"}
@@ -294,19 +315,21 @@ function ConstraintsView({
 }
 
 export function ArchitectPanel({
-  available,
-  onAddNode,
+  allNodes,
+  placedNodeIds,
+  onToggleNode,
   constraints,
   onConstraintsChange,
   activeConstraintCount,
   isNodeDisabled,
 }: {
-  available: {
+  allNodes: {
     platforms: SerializedNode[];
     catalogs: SerializedNode[];
     engines: SerializedNode[];
   };
-  onAddNode: (nodeId: string) => void;
+  placedNodeIds: Set<string>;
+  onToggleNode: (nodeId: string) => void;
   constraints: Constraints;
   onConstraintsChange: (c: Constraints) => void;
   activeConstraintCount: number;
@@ -317,9 +340,9 @@ export function ArchitectPanel({
   );
 
   const sections = [
-    { key: "platforms", nodes: available.platforms },
-    { key: "catalogs", nodes: available.catalogs },
-    { key: "engines", nodes: available.engines },
+    { key: "platforms", nodes: allNodes.platforms },
+    { key: "catalogs", nodes: allNodes.catalogs },
+    { key: "engines", nodes: allNodes.engines },
   ] as const;
 
   return (
@@ -359,7 +382,7 @@ export function ArchitectPanel({
                 ? "2px solid #ffffff"
                 : "2px solid transparent",
             backgroundColor: "transparent",
-            color: activeTab === "components" ? "#ffffff" : "#5a5a78",
+            color: activeTab === "components" ? "#ffffff" : "#7878a0",
             transition: "all 0.15s",
           }}
         >
@@ -379,7 +402,7 @@ export function ArchitectPanel({
                 ? "2px solid #ffffff"
                 : "2px solid transparent",
             backgroundColor: "transparent",
-            color: activeTab === "constraints" ? "#ffffff" : "#5a5a78",
+            color: activeTab === "constraints" ? "#ffffff" : "#7878a0",
             transition: "all 0.15s",
             display: "flex",
             alignItems: "center",
@@ -443,8 +466,8 @@ export function ArchitectPanel({
                   }}
                 >
                   {SECTION_LABELS[key]}
-                  <span style={{ color: "#5a5a78", marginLeft: "6px" }}>
-                    ({nodes.length})
+                  <span style={{ color: "#7878a0", marginLeft: "6px" }}>
+                    ({nodes.filter((n) => placedNodeIds.has(n.id)).length}/{nodes.length})
                   </span>
                 </h3>
                 <div
@@ -461,22 +484,11 @@ export function ArchitectPanel({
                         key={node.id}
                         node={node}
                         color={SECTION_COLORS[key]}
-                        onClick={() => onAddNode(node.id)}
+                        onClick={() => onToggleNode(node.id)}
                         disabled={isNodeDisabled(node)}
+                        placed={placedNodeIds.has(node.id)}
                       />
                     ))}
-                  {nodes.length === 0 && (
-                    <p
-                      style={{
-                        fontSize: "12px",
-                        color: "#4a4a68",
-                        fontStyle: "italic",
-                        padding: "8px 0",
-                      }}
-                    >
-                      All added
-                    </p>
-                  )}
                 </div>
               </div>
             ))}

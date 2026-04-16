@@ -44,9 +44,10 @@ export function Header() {
           An interactive map of Iceberg engine, catalog, and platform compatibility
         </p>
       </div>
-      <nav style={{ display: "flex", gap: "4px" }}>
+      <nav aria-label="Main navigation" style={{ display: "flex", gap: "4px" }}>
         <Link
           href="/"
+          aria-current={!isArchitect ? "page" : undefined}
           style={{
             padding: "8px 20px",
             borderRadius: "8px",
@@ -64,6 +65,7 @@ export function Header() {
         </Link>
         <Link
           href="/architect"
+          aria-current={isArchitect ? "page" : undefined}
           style={{
             padding: "8px 20px",
             borderRadius: "8px",

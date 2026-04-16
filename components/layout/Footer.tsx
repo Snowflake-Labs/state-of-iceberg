@@ -13,7 +13,7 @@ export function Footer() {
       <p
         style={{
           fontSize: "11px",
-          color: "#4a4a68",
+          color: "#7878a0",
           lineHeight: 1.6,
         }}
       >
