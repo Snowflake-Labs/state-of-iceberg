@@ -1,0 +1,5 @@
+# Default owner for everything
+*       @sfc-gh-ghernandez
+
+# Explicitly own the .github directory (protects CODEOWNERS itself)
+/.github/       @sfc-gh-ghernandez
