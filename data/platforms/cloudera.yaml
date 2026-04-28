@@ -21,8 +21,7 @@ open_source: false
 website: https://www.cloudera.com
 description: >-
   Enterprise data platform with multi-engine Iceberg support across Hive, Spark, Impala,
-  and Flink. The only vendor offering an Iceberg-powered lakehouse for private data centers
-  and hybrid cloud deployments.
+  and Flink. Supports on-premises, hybrid, and multi-cloud deployments.
 
 spec_support:
   v1: true
@@ -67,8 +66,8 @@ catalog_integrations:
     mode: read_write
 
 notes: >-
-  Multi-engine (Hive, Spark, Impala, Flink). Only vendor offering Iceberg-powered lakehouse
-  in private data centers. UPDATE and MERGE partial (Spark only). Branching/tagging partial
-  (Spark only). Manual maintenance via Spark procedures.
+  Multi-engine (Hive, Spark, Impala, Flink). Supports on-premises and hybrid deployments.
+  UPDATE and MERGE partial (Spark only). Branching/tagging partial (Spark only). Manual
+  maintenance via Spark procedures.
 
 last_verified: "2026-03-27"

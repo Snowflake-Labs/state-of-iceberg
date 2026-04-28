@@ -1,7 +1,7 @@
 {
   "name": "state-of-iceberg",
   "version": "1.0.0",
-  "description": "",
+  "description": "Interactive visualization of Apache Iceberg interoperability across platforms, catalogs, and engines",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
@@ -15,8 +15,8 @@
     "lakehouse",
     "data-engineering"
   ],
-  "author": "",
-  "license": "MIT",
+  "author": "Gilberto Hernandez",
+  "license": "Apache-2.0",
   "dependencies": {
     "@react-sigma/core": "^5.0.6",
     "@tailwindcss/postcss": "^4.2.2",

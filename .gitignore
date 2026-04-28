@@ -1,6 +1,8 @@
 node_modules/
 .next/
 out/
+.cursor/
+AGENT.md
 .DS_Store
 *.tsbuildinfo
 next-env.d.ts

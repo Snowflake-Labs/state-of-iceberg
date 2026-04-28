@@ -21,9 +21,9 @@ open_source: true
 license: Apache 2.0
 website: https://polaris.apache.org
 description: >
-  Open-source, fully-featured Iceberg catalog implementing the REST API.
-  Graduated as Apache TLP in February 2026. Supports Iceberg and Delta Lake
-  tables with unified access controls and credential vending.
+  Open-source Iceberg catalog implementing the REST API. Graduated as
+  Apache TLP in February 2026. Supports Iceberg and Delta Lake tables
+  with unified access controls and credential vending.
 rest_api: full
 vended_credentials: true
 multi_cloud:

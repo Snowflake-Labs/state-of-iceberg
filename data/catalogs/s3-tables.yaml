@@ -22,7 +22,7 @@ website: https://aws.amazon.com/s3/features/tables/
 description: >
   Purpose-built S3 bucket type for Iceberg tables with built-in REST
   Catalog APIs. Automatic maintenance (compaction, snapshot management,
-  orphan cleanup). 3x faster query throughput vs self-managed tables.
+  orphan cleanup).
 rest_api: full
 vended_credentials: true
 multi_cloud:

@@ -21,9 +21,9 @@ open_source: true
 license: Apache 2.0
 website: https://hive.apache.org
 description: >
-  Legacy standard catalog with the widest existing deployment base.
-  Thrift protocol (Java-centric). Hive 4.0+ ships with Iceberg 1.4.3
-  and can expose an Iceberg REST API endpoint.
+  Long-standing catalog in the Hadoop ecosystem using the Thrift protocol
+  (Java-centric). Hive 4.0+ ships with Iceberg 1.4.3 and can expose an
+  Iceberg REST API endpoint.
 rest_api: partial
 vended_credentials: false
 multi_cloud: []
@@ -36,6 +36,5 @@ multi_format:
 notes: >
   REST API available in Hive 4.0+ only. Traditional Thrift-based access
   remains common. No credential vending, no cross-cloud support in
-  traditional form. Recommended: avoid for new deployments, plan
-  migration to REST-based catalogs.
+  traditional form.
 last_verified: "2026-03-27"

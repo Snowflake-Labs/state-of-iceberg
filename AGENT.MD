@@ -128,7 +128,7 @@ When adding a new platform/engine/catalog:
 
 ## What's Not Built Yet
 
-See `design-notes.md` for the full build order and deferred features. Key remaining items:
+Key remaining items:
 - Platform detail pages (`/platform/[id]`)
 - Side-by-side comparator (`/compare?p=...`)
 - Filterable capability matrix (`/matrix`)
