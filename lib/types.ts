@@ -28,6 +28,7 @@ export type CatalogIntegration = {
   mode: "read" | "write" | "read_write";
   auth?: string;
   notes?: string;
+  source?: string;
 };
 
 export type DmlSupport = {
