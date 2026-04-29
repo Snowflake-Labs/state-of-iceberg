@@ -1,0 +1,42 @@
+# Copyright 2026 Snowflake Inc.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+id: onelake
+name: OneLake
+type: catalog
+vendor: Microsoft
+open_source: false
+website: https://learn.microsoft.com/en-us/fabric/onelake/
+description: >
+  Microsoft's unified data lake for Fabric. Exposes an Iceberg REST Catalog
+  endpoint for external engine access to Fabric tables. Supports read-only
+  metadata operations via the Iceberg REST Catalog specification.
+rest_api: preview
+vended_credentials: false
+multi_cloud:
+  - ADLS
+view_support: none
+multi_table_transactions: none
+version_control: false
+catalog_federation: none
+multi_format:
+  - Iceberg
+  - Delta Lake
+notes: >
+  REST endpoint at https://onelake.table.fabric.microsoft.com/iceberg.
+  Preview since October 2025. Currently read-only metadata operations.
+  Bi-directional Snowflake integration GA January 2026. Delta Lake
+  operations planned for future releases.
+last_verified: "2026-03-27"

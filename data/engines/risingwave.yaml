@@ -1,0 +1,91 @@
+# Copyright 2026 Snowflake Inc.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+id: risingwave
+name: RisingWave
+type: engine
+vendor: RisingWave Labs
+open_source: true
+website: https://risingwave.com/
+description: >-
+  RisingWave is a streaming database that sinks materialized view results into Iceberg
+  tables. It supports upsert mode for streaming CDC workloads and integrates with
+  multiple REST-compatible catalogs for lakehouse output.
+
+spec_support:
+  v1: false
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: false
+  avro: false
+
+dml:
+  insert: full
+  update: partial
+  delete: partial
+  merge: none
+  truncate: none
+
+capabilities:
+  schema_evolution: unknown
+  type_widening: unknown
+  partition_evolution: none
+  hidden_partitioning: none
+  time_travel: none
+  position_deletes: none
+  equality_deletes: none
+  merge_on_read: full
+  copy_on_write: full
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: full
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: none
+  snapshot_expiry: none
+  orphan_cleanup: none
+  manifest_rewrite: none
+
+catalog_integrations:
+  - catalog: polaris
+    mode: write
+  - catalog: glue
+    mode: write
+  - catalog: hms
+    mode: write
+  - catalog: s3_tables
+    mode: write
+  - catalog: unity_catalog
+    mode: write
+  - catalog: lakekeeper
+    mode: write
+  - catalog: nessie
+    mode: write
+  - catalog: gravitino
+    mode: write
+  - catalog: biglake
+    mode: write
+  - catalog: horizon
+    mode: write
+
+notes: >-
+  Sink-only engine for streaming materialized views into Iceberg. Update and delete
+  via upsert mode. Supports both merge-on-read and copy-on-write commit modes.
+
+last_verified: "2026-03-27"

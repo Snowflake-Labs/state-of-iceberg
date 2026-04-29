@@ -1,0 +1,94 @@
+# Copyright 2026 Snowflake Inc.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+id: starrocks
+name: StarRocks
+type: engine
+vendor: StarRocks
+open_source: true
+website: https://www.starrocks.io/
+description: >-
+  StarRocks is a high-performance analytical database with Iceberg support for federated
+  queries. It excels at read-side analytics with partial write capabilities and includes
+  a compaction service in version 4.0.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: true
+  avro: false
+
+dml:
+  insert: full
+  update: none
+  delete: none
+  merge: none
+  truncate: none
+  bulk_load: "INSERT OVERWRITE"
+
+capabilities:
+  schema_evolution: partial
+  type_widening: unknown
+  partition_evolution: none
+  hidden_partitioning: partial
+  time_travel: none
+  position_deletes: partial
+  equality_deletes: partial
+  merge_on_read: partial
+  copy_on_write: none
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: none
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: partial
+  snapshot_expiry: none
+  orphan_cleanup: none
+  manifest_rewrite: none
+
+catalog_integrations:
+  - catalog: hms
+    mode: read_write
+  - catalog: glue
+    mode: read_write
+  - catalog: polaris
+    mode: read_write
+  - catalog: lakekeeper
+    mode: read_write
+  - catalog: nessie
+    mode: read_write
+  - catalog: unity_catalog
+    mode: read_write
+  - catalog: s3_tables
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: horizon
+    mode: read_write
+  - catalog: onelake
+    mode: read
+
+notes: >-
+  Read-side schema evolution and hidden partitioning. Position and equality deletes
+  supported on read side. Manual compaction via 4.0 compaction service.
+
+last_verified: "2026-03-27"

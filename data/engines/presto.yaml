@@ -1,0 +1,89 @@
+# Copyright 2026 Snowflake Inc.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+id: presto
+name: Presto
+type: engine
+vendor: Presto Foundation
+open_source: true
+website: https://prestodb.io/
+description: >-
+  Presto is a distributed SQL query engine originally developed at Facebook, with Iceberg
+  support for v1 and v2 tables. It provides read/write capabilities with v3 support
+  currently in development.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: true
+  avro: true
+
+dml:
+  insert: full
+  update: full
+  delete: full
+  merge: partial
+  truncate: none
+
+capabilities:
+  schema_evolution: full
+  type_widening: unknown
+  partition_evolution: full
+  hidden_partitioning: full
+  time_travel: full
+  position_deletes: full
+  equality_deletes: full
+  merge_on_read: full
+  copy_on_write: none
+  branching_tagging: none
+  iceberg_views: none
+  streaming_write: none
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: partial
+  snapshot_expiry: full
+  orphan_cleanup: full
+  manifest_rewrite: partial
+
+catalog_integrations:
+  - catalog: hms
+    mode: read_write
+  - catalog: nessie
+    mode: read_write
+  - catalog: polaris
+    mode: read_write
+  - catalog: glue
+    mode: read_write
+  - catalog: unity_catalog
+    mode: read_write
+  - catalog: s3_tables
+    mode: read_write
+  - catalog: lakekeeper
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: horizon
+    mode: read_write
+  - catalog: onelake
+    mode: read
+
+last_verified: "2026-03-27"

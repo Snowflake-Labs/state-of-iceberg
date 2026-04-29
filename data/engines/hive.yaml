@@ -1,0 +1,94 @@
+# Copyright 2026 Snowflake Inc.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+id: hive
+name: Apache Hive
+type: engine
+vendor: Apache
+open_source: true
+website: https://hive.apache.org/
+description: >-
+  Apache Hive 4.0 adds native Iceberg table support with full DML operations using
+  copy-on-write via the Tez execution engine. It uses the Hive Metastore as its
+  primary catalog.
+
+spec_support:
+  v1: true
+  v2: true
+  v3: false
+
+file_formats:
+  parquet: true
+  orc: true
+  avro: true
+
+dml:
+  insert: full
+  update: full
+  delete: full
+  merge: full
+  truncate: full
+
+capabilities:
+  schema_evolution: full
+  type_widening: unknown
+  partition_evolution: full
+  hidden_partitioning: full
+  time_travel: full
+  position_deletes: full
+  equality_deletes: partial
+  merge_on_read: partial
+  copy_on_write: full
+  branching_tagging: full
+  iceberg_views: none
+  streaming_write: none
+
+maintenance:
+  auto_compaction: none
+  manual_compaction: full
+  snapshot_expiry: full
+  orphan_cleanup: full
+  manifest_rewrite: none
+
+catalog_integrations:
+  - catalog: hms
+    mode: read_write
+  - catalog: polaris
+    mode: read_write
+  - catalog: nessie
+    mode: read_write
+  - catalog: unity_catalog
+    mode: read_write
+  - catalog: glue
+    mode: read_write
+  - catalog: s3_tables
+    mode: read_write
+  - catalog: lakekeeper
+    mode: read_write
+  - catalog: gravitino
+    mode: read_write
+  - catalog: biglake
+    mode: read_write
+  - catalog: horizon
+    mode: read_write
+  - catalog: onelake
+    mode: read
+
+notes: >-
+  DML (update/delete/merge) requires Tez execution engine and copy-on-write mode.
+  Equality deletes supported read-only. Merge-on-read supported for reads only.
+  Manual compaction operates on full tables.
+
+last_verified: "2026-03-27"

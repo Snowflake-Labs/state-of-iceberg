@@ -1,0 +1,44 @@
+# Copyright 2026 Snowflake Inc.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+id: biglake
+name: BigLake Metastore
+type: catalog
+vendor: Google Cloud
+open_source: false
+website: https://cloud.google.com/biglake
+description: >
+  Fully managed, serverless Iceberg metastore for Google Cloud. Unified
+  metadata management across BigQuery, Spark, Flink, and other Iceberg
+  engines. REST Catalog API support in preview.
+rest_api: full
+vended_credentials: true
+multi_cloud:
+  - GCS
+view_support: none
+multi_table_transactions: none
+version_control: false
+catalog_federation: none
+multi_format:
+  - Iceberg
+notes: >
+  Iceberg REST Catalog GA. Endpoint at
+  biglake.googleapis.com/iceberg/v1beta/restcatalog. Supports credential
+  vending for fine-grained access control. Integrated with Dataplex
+  Universal Catalog for lineage, data quality, and discoverability.
+  Cross-region replication supported. Legacy BigLakeCatalog plugin
+  (org.apache.iceberg.gcp.biglake.BigLakeCatalog) still available for
+  Iceberg library versions 0.14.0-1.9.1.
+last_verified: "2026-04-08"
