@@ -50,7 +50,7 @@ export function Header() {
         </h1>
         <p
           style={{
-            fontSize: "13px",
+            fontSize: "14px",
             color: "#b0b0c8",
             marginTop: "4px",
             letterSpacing: "0.01em",
@@ -66,7 +66,7 @@ export function Header() {
           style={{
             padding: "8px 20px",
             borderRadius: "8px",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: 600,
             letterSpacing: "0.01em",
             textDecoration: "none",
@@ -84,7 +84,7 @@ export function Header() {
           style={{
             padding: "8px 20px",
             borderRadius: "8px",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: 600,
             letterSpacing: "0.01em",
             textDecoration: "none",

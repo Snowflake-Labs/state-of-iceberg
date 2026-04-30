@@ -55,7 +55,7 @@ export function GraphPage({
         >
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               color: "#b0b0c8",
               fontWeight: 500,
               letterSpacing: "0.02em",
