@@ -15,7 +15,7 @@
 
 "use client";
 
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import type { GraphPayload, SerializedNode } from "@/lib/graph-data";
 import { Header } from "@/components/layout/Header";
@@ -51,6 +51,61 @@ function nodePassesConstraints(
   }
 
   return true;
+}
+
+function CopyArchitectLink() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      style={{
+        padding: "10px 22px",
+        borderRadius: "10px",
+        backgroundColor: copied ? "rgba(52,211,153,0.12)" : "rgba(17,17,25,0.7)",
+        backdropFilter: "blur(8px)",
+        border: copied ? "1px solid rgba(52,211,153,0.3)" : "1px solid rgba(255,255,255,0.06)",
+        fontSize: "13px",
+        fontWeight: 600,
+        color: copied ? "#34d399" : "#9898b8",
+        cursor: "pointer",
+        transition: "all 0.15s",
+      }}
+      onMouseEnter={(e) => {
+        if (!copied) {
+          e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
+          e.currentTarget.style.color = "#d0d0e0";
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!copied) {
+          e.currentTarget.style.backgroundColor = "rgba(17,17,25,0.7)";
+          e.currentTarget.style.color = "#9898b8";
+        }
+      }}
+    >
+      <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+      {copied ? (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ) : (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+      )}
+      {copied ? "Copied!" : "Share URL"}
+    </span>
+    </button>
+  );
 }
 
 export function ArchitectPage({
@@ -284,6 +339,7 @@ export function ArchitectPage({
               >
                 Clear canvas
               </button>
+              <CopyArchitectLink />
             </div>
           )}
 

@@ -75,10 +75,6 @@ catalog_integrations:
     mode: read_write
   - catalog: horizon
     mode: read_write
-  - catalog: nessie
-    mode: read_write
-  - catalog: unity_catalog
-    mode: read_write
   - catalog: s3_tables
     mode: read_write
   - catalog: lakekeeper
