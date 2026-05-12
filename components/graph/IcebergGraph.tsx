@@ -217,15 +217,18 @@ type GraphEventsHandle = {
 function GraphEvents({
   onSelectNode,
   eventsRef,
+  initialNodeId,
 }: {
   onSelectNode: (nodeId: string | null) => void;
   eventsRef: React.RefObject<GraphEventsHandle | null>;
+  initialNodeId?: string | null;
 }) {
   const registerEvents = useRegisterEvents();
   const sigma = useSigma();
   const selectedNodeRef = useRef<string | null>(null);
   const labelHoverRef = useRef<string | null>(null);
   const isOverNodeRef = useRef(false);
+  const initialSelectionDone = useRef(false);
   const handleNodeHighlight = useCallback(
     (activeNode: string | null) => {
       const graph = sigma.getGraph();
@@ -426,15 +429,27 @@ function GraphEvents({
     });
   }, [registerEvents, sigma, handleNodeHighlight, selectNode, findNodeAtPosition]);
 
+  useEffect(() => {
+    if (initialNodeId && !initialSelectionDone.current && sigma.getGraph().order > 0) {
+      initialSelectionDone.current = true;
+      requestAnimationFrame(() => {
+        selectNode(initialNodeId);
+        sigma.refresh();
+      });
+    }
+  }, [initialNodeId, selectNode, sigma]);
+
   return null;
 }
 
 export function IcebergGraph({
   data,
   allNodeData,
+  initialNodeId,
 }: {
   data: GraphPayload;
   allNodeData: Record<string, SerializedNode>;
+  initialNodeId?: string | null;
 }) {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const graphEventsRef = useRef<GraphEventsHandle | null>(null);
@@ -506,7 +521,7 @@ export function IcebergGraph({
             }}
           >
             <GraphLoader data={data} />
-            <GraphEvents onSelectNode={setSelectedNodeId} eventsRef={graphEventsRef} />
+            <GraphEvents onSelectNode={setSelectedNodeId} eventsRef={graphEventsRef} initialNodeId={initialNodeId} />
             <ColumnHeaders />
           </SigmaContainer>
         </div>

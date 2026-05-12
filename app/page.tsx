@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import { Suspense } from "react";
 import { getAllNodes, getGraphEdges } from "@/lib/data";
 import { buildGraphPayload } from "@/lib/graph-data";
 import type { SerializedNode } from "@/lib/graph-data";
@@ -28,5 +29,9 @@ export default function Home() {
     allNodeData[node.id] = node;
   }
 
-  return <GraphPage data={graphPayload} allNodeData={allNodeData} />;
+  return (
+    <Suspense>
+      <GraphPage data={graphPayload} allNodeData={allNodeData} />
+    </Suspense>
+  );
 }

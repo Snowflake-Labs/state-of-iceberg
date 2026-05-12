@@ -15,7 +15,7 @@
 
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { SerializedNode } from "@/lib/graph-data";
 
 type Connection = {
@@ -68,6 +68,58 @@ function SpecBadge({ v, label }: { v: boolean | "preview"; label: string }) {
         </span>
       )}
     </div>
+  );
+}
+
+function CopyLinkButton({ nodeId }: { nodeId: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    const url = `${window.location.origin}/?node=${encodeURIComponent(nodeId)}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    });
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      style={{
+        color: copied ? "#34d399" : "#7878a0",
+        padding: "8px",
+        borderRadius: "8px",
+        border: "none",
+        background: "transparent",
+        cursor: "pointer",
+        transition: "color 0.15s",
+      }}
+      onMouseEnter={(e) => {
+        if (!copied) {
+          e.currentTarget.style.color = "#ffffff";
+          e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!copied) {
+          e.currentTarget.style.color = "#7878a0";
+        }
+        e.currentTarget.style.backgroundColor = "transparent";
+      }}
+      aria-label={copied ? "Link copied" : "Copy link"}
+      title={copied ? "Copied!" : "Copy link"}
+    >
+      {copied ? (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ) : (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+      )}
+    </button>
   );
 }
 
@@ -318,41 +370,42 @@ export function NodeDetailDrawer({
             </p>
           )}
         </div>
-        <button
-          onClick={onClose}
-          style={{
-            color: "#7878a0",
-            padding: "8px",
-            borderRadius: "8px",
-            border: "none",
-            background: "transparent",
-            cursor: "pointer",
-            marginRight: "-4px",
-            marginTop: "-4px",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.color = "#ffffff";
-            e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.color = "#7878a0";
-            e.currentTarget.style.backgroundColor = "transparent";
-          }}
-          aria-label="Close"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
+        <div style={{ display: "flex", alignItems: "center", gap: "4px", marginRight: "-4px", marginTop: "-4px" }}>
+          <CopyLinkButton nodeId={node.id} />
+          <button
+            onClick={onClose}
+            style={{
+              color: "#7878a0",
+              padding: "8px",
+              borderRadius: "8px",
+              border: "none",
+              background: "transparent",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#ffffff";
+              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#7878a0";
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
+            aria-label="Close"
           >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Content */}
