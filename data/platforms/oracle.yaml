@@ -19,28 +19,21 @@ type: platform
 vendor: Oracle
 open_source: false
 website: https://www.oracle.com/database
-description: >-
-  Enterprise database with read-only Iceberg support via Autonomous AI Database Serverless
-  and Oracle Database 26. Accesses external Iceberg tables through the ORACLE_BIGDATA
-  Access Driver.
-
+description: Enterprise database with read-only Iceberg support via Autonomous AI Database Serverless and Oracle Database 26. Accesses external Iceberg tables through the ORACLE_BIGDATA Access Driver.
 spec_support:
   v1: true
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: false
   avro: false
-
 dml:
   insert: none
   update: none
   delete: none
   merge: none
   truncate: none
-
 capabilities:
   schema_evolution: partial
   type_widening: none
@@ -54,20 +47,15 @@ capabilities:
   branching_tagging: none
   iceberg_views: none
   streaming_write: none
-
 maintenance:
   auto_compaction: none
   manual_compaction: none
   snapshot_expiry: none
   orphan_cleanup: none
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: glue
-    mode: read
-
-notes: >-
-  Read-only via Autonomous AI Database Serverless and Oracle Database 26.
-  ORACLE_BIGDATA Access Driver. Schema evolution and time travel are read-side only.
-
-last_verified: "2026-03-27"
+- catalog: glue
+  mode: read
+  source: https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/query-external-data-apache-iceberg.html
+notes: Read-only via Autonomous AI Database Serverless and Oracle Database 26. ORACLE_BIGDATA Access Driver. Schema evolution and time travel are read-side only.
+last_verified: '2026-03-27'

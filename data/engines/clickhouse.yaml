@@ -19,28 +19,22 @@ type: engine
 vendor: ClickHouse Inc.
 open_source: true
 website: https://clickhouse.com/
-description: >-
-  ClickHouse is a column-oriented OLAP database with Iceberg support primarily for
-  read-side analytics. Write support for local tables was merged in July 2025, with
-  catalog-integrated writes still in development.
-
+description: ClickHouse is a column-oriented OLAP database with Iceberg support primarily for read-side analytics. Write support for local tables was merged in July 2025, with catalog-integrated writes
+  still in development.
 spec_support:
   v1: true
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: false
   avro: false
-
 dml:
   insert: partial
   update: none
   delete: none
   merge: none
   truncate: none
-
 capabilities:
   schema_evolution: partial
   type_widening: partial
@@ -54,41 +48,39 @@ capabilities:
   branching_tagging: none
   iceberg_views: none
   streaming_write: none
-
 maintenance:
   auto_compaction: none
   manual_compaction: none
   snapshot_expiry: none
   orphan_cleanup: none
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: glue
-    mode: read
-  - catalog: polaris
-    mode: read
-  - catalog: unity_catalog
-    mode: read
-  - catalog: hms
-    mode: read
-  - catalog: nessie
-    mode: read
-  - catalog: s3_tables
-    mode: read
-  - catalog: lakekeeper
-    mode: read
-  - catalog: gravitino
-    mode: read
-  - catalog: biglake
-    mode: read
-  - catalog: horizon
-    mode: read
-  - catalog: onelake
-    mode: read
-
-notes: >-
-  Write support merged July 2025, limited to local tables only. Catalog-integrated
-  writes in development. Read-side schema evolution and partition pruning. Equality
-  deletes supported in v25.8+.
-
-last_verified: "2026-03-27"
+- catalog: glue
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: polaris
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: unity_catalog
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: nessie
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: lakekeeper
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: gravitino
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: biglake
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: horizon
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+- catalog: onelake
+  mode: read
+  source: https://clickhouse.com/docs/en/use-cases/data-lake/support-matrix
+notes: Write support merged July 2025, limited to local tables only. Catalog-integrated writes in development. Read-side schema evolution and partition pruning. Equality deletes supported in v25.8+.
+last_verified: '2026-03-27'

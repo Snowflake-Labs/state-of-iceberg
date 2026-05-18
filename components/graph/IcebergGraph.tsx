@@ -476,6 +476,7 @@ export function IcebergGraph({
             e.source === selectedNodeId ? e.target : e.source
           ]?.type || "engine",
         mode: e.mode,
+        docSource: e.docSource,
       }));
   }, [selectedNodeId, data.edges, allNodeData]);
 

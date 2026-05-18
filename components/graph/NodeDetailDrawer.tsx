@@ -23,6 +23,7 @@ type Connection = {
   nodeName: string;
   nodeType: string;
   mode: "read" | "write" | "read_write";
+  docSource?: string;
 };
 
 const TYPE_BG: Record<string, string> = {
@@ -206,37 +207,61 @@ function ConnectionSection({
                 {conn.nodeName}
               </span>
             </div>
-            <span
-              style={{
-                fontSize: "10px",
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                flexShrink: 0,
-                marginLeft: "12px",
-                padding: "4px 10px",
-                borderRadius: "6px",
-                ...(conn.mode === "read_write"
-                  ? {
-                      backgroundColor: "rgba(52,211,153,0.12)",
-                      color: "#34d399",
-                      border: "1px solid rgba(52,211,153,0.2)",
-                    }
-                  : conn.mode === "read"
-                  ? {
-                      backgroundColor: "rgba(96,165,250,0.12)",
-                      color: "#60a5fa",
-                      border: "1px solid rgba(96,165,250,0.2)",
-                    }
-                  : {
-                      backgroundColor: "rgba(251,191,36,0.12)",
-                      color: "#fbbf24",
-                      border: "1px solid rgba(251,191,36,0.2)",
-                    }),
-              }}
-            >
-              {MODE_LABELS[conn.mode]}
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0, marginLeft: "12px" }}>
+              <span
+                style={{
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  padding: "4px 10px",
+                  borderRadius: "6px",
+                  ...(conn.mode === "read_write"
+                    ? {
+                        backgroundColor: "rgba(52,211,153,0.12)",
+                        color: "#34d399",
+                        border: "1px solid rgba(52,211,153,0.2)",
+                      }
+                    : conn.mode === "read"
+                    ? {
+                        backgroundColor: "rgba(96,165,250,0.12)",
+                        color: "#60a5fa",
+                        border: "1px solid rgba(96,165,250,0.2)",
+                      }
+                    : {
+                        backgroundColor: "rgba(251,191,36,0.12)",
+                        color: "#fbbf24",
+                        border: "1px solid rgba(251,191,36,0.2)",
+                      }),
+                }}
+              >
+                {MODE_LABELS[conn.mode]}
+              </span>
+              {conn.docSource && (
+                <a
+                  href={conn.docSource}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    color: "#7878a0",
+                    padding: "4px",
+                    borderRadius: "4px",
+                    display: "inline-flex",
+                    transition: "color 0.15s",
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#60a5fa"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#7878a0"; }}
+                  title="View documentation"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              )}
+            </div>
           </div>
         ))}
         {items.length === 0 && (
