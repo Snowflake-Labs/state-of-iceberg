@@ -80,8 +80,6 @@ catalog_integrations:
     mode: read_write
   - catalog: hms
     mode: read_write
-  - catalog: glue
-    mode: read_write
   - catalog: nessie
     mode: read_write
   - catalog: gravitino

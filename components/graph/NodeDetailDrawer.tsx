@@ -86,7 +86,7 @@ function CopyLinkButton({ nodeId }: { nodeId: string }) {
     <button
       onClick={handleCopy}
       style={{
-        color: copied ? "#34d399" : "#7878a0",
+        color: copied ? "#34d399" : "var(--text-muted)",
         padding: "8px",
         borderRadius: "8px",
         border: "none",
@@ -96,13 +96,13 @@ function CopyLinkButton({ nodeId }: { nodeId: string }) {
       }}
       onMouseEnter={(e) => {
         if (!copied) {
-          e.currentTarget.style.color = "#ffffff";
-          e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
+          e.currentTarget.style.color = "var(--text-bright)";
+          e.currentTarget.style.backgroundColor = "var(--bg-row-hover)";
         }
       }}
       onMouseLeave={(e) => {
         if (!copied) {
-          e.currentTarget.style.color = "#7878a0";
+          e.currentTarget.style.color = "var(--text-muted)";
         }
         e.currentTarget.style.backgroundColor = "transparent";
       }}
@@ -142,19 +142,19 @@ function ConnectionSection({
           fontWeight: 700,
           textTransform: "uppercase",
           letterSpacing: "0.16em",
-          color: "#7878a0",
+          color: "var(--text-muted)",
           marginBottom: "6px",
         }}
       >
         {title}{" "}
-        <span style={{ color: "#7878a0", marginLeft: "4px" }}>
+        <span style={{ color: "var(--text-muted)", marginLeft: "4px" }}>
           ({items.length})
         </span>
       </h3>
       <p
         style={{
           fontSize: "13px",
-          color: "#7878a0",
+          color: "var(--text-muted)",
           marginBottom: "14px",
           lineHeight: 1.5,
         }}
@@ -171,19 +171,19 @@ function ConnectionSection({
               justifyContent: "space-between",
               padding: "14px 18px",
               borderRadius: "12px",
-              backgroundColor: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(255,255,255,0.04)",
+              backgroundColor: "var(--bg-row)",
+              border: "1px solid var(--border-row)",
               transition: "background-color 0.15s, border-color 0.15s",
               cursor: onClickNode ? "pointer" : "default",
             }}
             onClick={() => onClickNode?.(conn.nodeId)}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)";
+              e.currentTarget.style.backgroundColor = "var(--bg-row-hover)";
+              e.currentTarget.style.borderColor = "var(--border-row-hover)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.02)";
-              e.currentTarget.style.borderColor = "rgba(255,255,255,0.04)";
+              e.currentTarget.style.backgroundColor = "var(--bg-row)";
+              e.currentTarget.style.borderColor = "var(--border-row)";
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -200,7 +200,7 @@ function ConnectionSection({
                 style={{
                   fontSize: "15px",
                   fontWeight: 500,
-                  color: "#d0d0e0",
+                  color: "var(--text-node-name)",
                 }}
               >
                 {conn.nodeName}
@@ -244,12 +244,12 @@ function ConnectionSection({
             style={{
               padding: "20px 18px",
               borderRadius: "12px",
-              backgroundColor: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(255,255,255,0.04)",
+              backgroundColor: "var(--bg-row)",
+              border: "1px solid var(--border-row)",
               textAlign: "center",
             }}
           >
-            <p style={{ fontSize: "14px", color: "#8080a0" }}>None</p>
+            <p style={{ fontSize: "14px", color: "var(--text-muted)" }}>None</p>
           </div>
         )}
       </div>
@@ -292,12 +292,12 @@ export function NodeDetailDrawer({
         top: 0,
         height: "100%",
         width: "100%",
-        backgroundColor: "rgba(14, 14, 22, 0.95)",
+        backgroundColor: "var(--bg-surface)",
         backdropFilter: "blur(16px)",
-        borderLeft: "1px solid rgba(255,255,255,0.06)",
+        borderLeft: "1px solid var(--border-subtle)",
         overflowY: "auto",
         zIndex: 50,
-        boxShadow: "-20px 0 60px rgba(0,0,0,0.5)",
+        boxShadow: "-20px 0 60px var(--shadow)",
       }}
     >
       {/* Header */}
@@ -305,9 +305,9 @@ export function NodeDetailDrawer({
         style={{
           position: "sticky",
           top: 0,
-          backgroundColor: "rgba(14, 14, 22, 0.95)",
+          backgroundColor: "var(--bg-surface)",
           backdropFilter: "blur(16px)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid var(--border-subtle)",
           padding: "28px 32px",
           display: "flex",
           alignItems: "flex-start",
@@ -345,7 +345,7 @@ export function NodeDetailDrawer({
                   textTransform: "uppercase",
                   letterSpacing: "0.12em",
                   backgroundColor: "rgba(139,92,246,0.12)",
-                  color: "#a78bfa",
+                  color: "var(--accent-text)",
                   border: "1px solid rgba(139,92,246,0.25)",
                 }}
               >
@@ -357,7 +357,7 @@ export function NodeDetailDrawer({
             style={{
               fontSize: "26px",
               fontWeight: 700,
-              color: "#ffffff",
+              color: "var(--text-bright)",
               letterSpacing: "-0.02em",
               lineHeight: 1.2,
             }}
@@ -365,7 +365,7 @@ export function NodeDetailDrawer({
             {node.name}
           </h2>
           {node.vendor && (
-            <p style={{ fontSize: "14px", color: "#9090b0", marginTop: "6px" }}>
+            <p style={{ fontSize: "14px", color: "var(--text-secondary)", marginTop: "6px" }}>
               {node.vendor}
             </p>
           )}
@@ -375,7 +375,7 @@ export function NodeDetailDrawer({
           <button
             onClick={onClose}
             style={{
-              color: "#7878a0",
+              color: "var(--text-muted)",
               padding: "8px",
               borderRadius: "8px",
               border: "none",
@@ -383,11 +383,11 @@ export function NodeDetailDrawer({
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#ffffff";
-              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.05)";
+              e.currentTarget.style.color = "var(--text-bright)";
+              e.currentTarget.style.backgroundColor = "var(--bg-row-hover)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#7878a0";
+              e.currentTarget.style.color = "var(--text-muted)";
               e.currentTarget.style.backgroundColor = "transparent";
             }}
             aria-label="Close"
@@ -414,7 +414,7 @@ export function NodeDetailDrawer({
         <p
           style={{
             fontSize: "15px",
-            color: "#c4c4d8",
+            color: "var(--text-description)",
             lineHeight: 1.75,
             marginBottom: "32px",
           }}
@@ -431,7 +431,7 @@ export function NodeDetailDrawer({
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.16em",
-                color: "#7878a0",
+                color: "var(--text-muted)",
                 marginBottom: "14px",
               }}
             >
@@ -449,7 +449,7 @@ export function NodeDetailDrawer({
         <div
           style={{
             height: "1px",
-            backgroundColor: "rgba(255,255,255,0.04)",
+            backgroundColor: "var(--border-row)",
             marginBottom: "32px",
           }}
         />

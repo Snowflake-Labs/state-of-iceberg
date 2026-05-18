@@ -21,8 +21,8 @@ export function Footer() {
       style={{
         flexShrink: 0,
         padding: "12px 36px",
-        borderTop: "1px solid rgba(255,255,255,0.04)",
-        backgroundColor: "rgba(8,8,13,0.9)",
+        borderTop: "1px solid var(--border-subtle)",
+        backgroundColor: "var(--bg-surface)",
       }}
     >
       <div
@@ -35,7 +35,7 @@ export function Footer() {
         <p
           style={{
             fontSize: "13px",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             lineHeight: 1.6,
           }}
         >
@@ -51,14 +51,14 @@ export function Footer() {
           style={{
             fontSize: "13px",
             fontWeight: 600,
-            color: "#7878a0",
+            color: "var(--text-muted)",
             textDecoration: "none",
             whiteSpace: "nowrap",
             marginLeft: "24px",
             transition: "color 0.15s",
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = "#b0b0c8"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = "#7878a0"; }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = "var(--text-secondary)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-muted)"; }}
         >
           Contribute on GitHub ↗
         </a>

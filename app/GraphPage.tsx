@@ -37,7 +37,7 @@ export function GraphPage({
   const searchParams = useSearchParams();
   const initialNodeId = searchParams.get("node") || null;
   return (
-    <div style={{ height: "100vh", width: "100vw", display: "flex", flexDirection: "column", backgroundColor: "#08080d" }}>
+    <div style={{ height: "100vh", width: "100vw", display: "flex", flexDirection: "column", backgroundColor: "var(--bg-primary)" }}>
       <Header />
 
       <main style={{ flex: 1, position: "relative", overflow: "hidden" }}>
@@ -51,15 +51,15 @@ export function GraphPage({
             zIndex: 40,
             padding: "10px 18px",
             borderRadius: "12px",
-            backgroundColor: "rgba(17,17,25,0.7)",
+            backgroundColor: "var(--bg-surface)",
             backdropFilter: "blur(8px)",
-            border: "1px solid rgba(255,255,255,0.04)",
+            border: "1px solid var(--border-subtle)",
           }}
         >
           <p
             style={{
               fontSize: "14px",
-              color: "#b0b0c8",
+              color: "var(--text-secondary)",
               fontWeight: 500,
               letterSpacing: "0.02em",
             }}
