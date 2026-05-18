@@ -47,11 +47,11 @@ function PillButton({
   const bgDefault = placed
     ? `rgba(${parseInt(color.slice(1, 3), 16)},${parseInt(color.slice(3, 5), 16)},${parseInt(color.slice(5, 7), 16)},0.12)`
     : disabled
-      ? "rgba(255,255,255,0.01)"
-      : "rgba(255,255,255,0.02)";
+      ? "var(--bg-surface)"
+      : "var(--bg-row)";
   const borderDefault = placed
     ? `1px solid ${color}40`
-    : "1px solid rgba(255,255,255,0.04)";
+    : "1px solid var(--border-subtle)";
 
   return (
     <button
@@ -65,7 +65,7 @@ function PillButton({
         borderRadius: "10px",
         backgroundColor: bgDefault,
         border: borderDefault,
-        color: placed ? "#ffffff" : disabled ? "#3a3a50" : "#d0d0e0",
+        color: placed ? "var(--text-bright)" : disabled ? "var(--border-subtle)" : "var(--text-node-name)",
         fontSize: "14px",
         fontWeight: placed ? 600 : 500,
         cursor: disabled && !placed ? "not-allowed" : "pointer",
@@ -77,13 +77,13 @@ function PillButton({
         if (!disabled || placed) {
           e.currentTarget.style.backgroundColor = placed
             ? `rgba(${parseInt(color.slice(1, 3), 16)},${parseInt(color.slice(3, 5), 16)},${parseInt(color.slice(5, 7), 16)},0.18)`
-            : "rgba(255,255,255,0.06)";
-          e.currentTarget.style.borderColor = placed ? `${color}60` : "rgba(255,255,255,0.1)";
+            : "var(--bg-hover)";
+          e.currentTarget.style.borderColor = placed ? `${color}60` : "var(--border-row-hover)";
         }
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.backgroundColor = bgDefault;
-        e.currentTarget.style.borderColor = placed ? `${color}40` : "rgba(255,255,255,0.04)";
+        e.currentTarget.style.borderColor = placed ? `${color}40` : "var(--border-subtle)";
       }}
     >
       <span
@@ -91,7 +91,7 @@ function PillButton({
           width: "8px",
           height: "8px",
           borderRadius: "50%",
-          backgroundColor: disabled && !placed ? "#3a3a50" : color,
+          backgroundColor: disabled && !placed ? "var(--border-subtle)" : color,
           flexShrink: 0,
         }}
       />
@@ -101,7 +101,7 @@ function PillButton({
           style={{
             marginLeft: "auto",
             fontSize: "11px",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             fontWeight: 500,
           }}
         >
@@ -149,19 +149,19 @@ function ConstraintsView({
               fontSize: "12px",
               fontWeight: 600,
               cursor: "pointer",
-              border: "1px solid rgba(255,255,255,0.08)",
-              backgroundColor: "rgba(255,255,255,0.03)",
-              color: "#9898b8",
+              border: "1px solid var(--border-subtle)",
+              backgroundColor: "var(--bg-row)",
+              color: "var(--text-secondary)",
               transition: "all 0.15s",
               width: "100%",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.06)";
-              e.currentTarget.style.color = "#d0d0e0";
+              e.currentTarget.style.backgroundColor = "var(--bg-hover)";
+              e.currentTarget.style.color = "var(--text-node-name)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.03)";
-              e.currentTarget.style.color = "#9898b8";
+              e.currentTarget.style.backgroundColor = "var(--bg-row)";
+              e.currentTarget.style.color = "var(--text-secondary)";
             }}
           >
             Clear all constraints
@@ -176,7 +176,7 @@ function ConstraintsView({
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.16em",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             marginBottom: "6px",
           }}
         >
@@ -185,7 +185,7 @@ function ConstraintsView({
         <p
           style={{
             fontSize: "12px",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             marginBottom: "12px",
             lineHeight: 1.5,
           }}
@@ -209,13 +209,13 @@ function ConstraintsView({
                 border:
                   constraints.minSpec === opt.value
                     ? "1px solid rgba(139,92,246,0.4)"
-                    : "1px solid rgba(255,255,255,0.06)",
+                    : "1px solid var(--border-subtle)",
                 backgroundColor:
                   constraints.minSpec === opt.value
                     ? "rgba(139,92,246,0.15)"
-                    : "rgba(255,255,255,0.02)",
+                    : "var(--bg-row)",
                 color:
-                  constraints.minSpec === opt.value ? "#a78bfa" : "#8888a8",
+                  constraints.minSpec === opt.value ? "var(--accent-text)" : "var(--text-muted)",
               }}
             >
               {opt.label}
@@ -232,7 +232,7 @@ function ConstraintsView({
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.16em",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             marginBottom: "6px",
           }}
         >
@@ -241,7 +241,7 @@ function ConstraintsView({
         <p
           style={{
             fontSize: "12px",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             marginBottom: "12px",
             lineHeight: 1.5,
           }}
@@ -264,11 +264,11 @@ function ConstraintsView({
             transition: "all 0.15s",
             border: constraints.writeRequired
               ? "1px solid rgba(139,92,246,0.4)"
-              : "1px solid rgba(255,255,255,0.06)",
+              : "1px solid var(--border-subtle)",
             backgroundColor: constraints.writeRequired
               ? "rgba(139,92,246,0.15)"
-              : "rgba(255,255,255,0.02)",
-            color: constraints.writeRequired ? "#a78bfa" : "#8888a8",
+              : "var(--bg-row)",
+            color: constraints.writeRequired ? "var(--accent-text)" : "var(--text-muted)",
           }}
         >
           {constraints.writeRequired ? "On" : "Off"}
@@ -283,7 +283,7 @@ function ConstraintsView({
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.16em",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             marginBottom: "6px",
           }}
         >
@@ -292,7 +292,7 @@ function ConstraintsView({
         <p
           style={{
             fontSize: "12px",
-            color: "#7878a0",
+            color: "var(--text-muted)",
             marginBottom: "12px",
             lineHeight: 1.5,
           }}
@@ -315,11 +315,11 @@ function ConstraintsView({
             transition: "all 0.15s",
             border: constraints.openSourceOnly
               ? "1px solid rgba(139,92,246,0.4)"
-              : "1px solid rgba(255,255,255,0.06)",
+              : "1px solid var(--border-subtle)",
             backgroundColor: constraints.openSourceOnly
               ? "rgba(139,92,246,0.15)"
-              : "rgba(255,255,255,0.02)",
-            color: constraints.openSourceOnly ? "#a78bfa" : "#8888a8",
+              : "var(--bg-row)",
+            color: constraints.openSourceOnly ? "var(--accent-text)" : "var(--text-muted)",
           }}
         >
           {constraints.openSourceOnly ? "On" : "Off"}
@@ -366,9 +366,9 @@ export function ArchitectPanel({
         width: "340px",
         flexShrink: 0,
         height: "100%",
-        backgroundColor: "rgba(14, 14, 22, 0.95)",
+        backgroundColor: "var(--bg-surface)",
         backdropFilter: "blur(16px)",
-        borderLeft: "1px solid rgba(255,255,255,0.06)",
+        borderLeft: "1px solid var(--border-subtle)",
         overflowY: "auto",
         boxShadow: "-20px 0 60px rgba(0,0,0,0.5)",
         display: "flex",
@@ -379,7 +379,7 @@ export function ArchitectPanel({
       <div
         style={{
           display: "flex",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid var(--border-subtle)",
           flexShrink: 0,
         }}
       >
@@ -394,10 +394,10 @@ export function ArchitectPanel({
             border: "none",
             borderBottom:
               activeTab === "components"
-                ? "2px solid #ffffff"
+                ? "2px solid var(--text-bright)"
                 : "2px solid transparent",
             backgroundColor: "transparent",
-            color: activeTab === "components" ? "#ffffff" : "#7878a0",
+            color: activeTab === "components" ? "var(--text-bright)" : "var(--text-muted)",
             transition: "all 0.15s",
           }}
         >
@@ -414,10 +414,10 @@ export function ArchitectPanel({
             border: "none",
             borderBottom:
               activeTab === "constraints"
-                ? "2px solid #ffffff"
+                ? "2px solid var(--text-bright)"
                 : "2px solid transparent",
             backgroundColor: "transparent",
-            color: activeTab === "constraints" ? "#ffffff" : "#7878a0",
+            color: activeTab === "constraints" ? "var(--text-bright)" : "var(--text-muted)",
             transition: "all 0.15s",
             display: "flex",
             alignItems: "center",
@@ -441,7 +441,7 @@ export function ArchitectPanel({
                 height: "20px",
                 borderRadius: "50%",
                 backgroundColor: "rgba(139,92,246,0.2)",
-                color: "#a78bfa",
+                color: "var(--accent-text)",
                 fontSize: "11px",
                 fontWeight: 700,
               }}
@@ -460,7 +460,7 @@ export function ArchitectPanel({
               <p
                 style={{
                   fontSize: "12px",
-                  color: "#7878a0",
+                  color: "var(--text-muted)",
                   lineHeight: 1.5,
                 }}
               >
@@ -481,7 +481,7 @@ export function ArchitectPanel({
                   }}
                 >
                   {SECTION_LABELS[key]}
-                  <span style={{ color: "#7878a0", marginLeft: "6px" }}>
+                  <span style={{ color: "var(--text-muted)", marginLeft: "6px" }}>
                     ({nodes.filter((n) => placedNodeIds.has(n.id)).length}/{nodes.length})
                   </span>
                 </h3>
