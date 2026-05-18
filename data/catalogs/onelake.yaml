@@ -36,7 +36,7 @@ multi_format:
   - Delta Lake
 notes: >
   REST endpoint at https://onelake.table.fabric.microsoft.com/iceberg.
-  Preview since October 2025. Currently read-only metadata operations.
-  Bi-directional Snowflake integration GA January 2026. Delta Lake
-  operations planned for future releases.
+  Currently read-only metadata operations. Bi-directional Snowflake
+  integration available. Delta Lake operations planned for future
+  releases.
 last_verified: "2026-03-27"

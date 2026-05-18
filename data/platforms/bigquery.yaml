@@ -58,5 +58,5 @@ catalog_integrations:
 - catalog: biglake
   mode: read_write
   source: https://cloud.google.com/bigquery/docs/iceberg-tables
-notes: Managed Iceberg tables via BigLake, GA May 2025. Fully autonomous storage optimization. Iceberg v2 snapshot export for external engine interop.
+notes: Managed Iceberg tables via BigLake. Fully autonomous storage optimization. Iceberg v2 snapshot export for external engine interop.
 last_verified: '2026-03-27'
