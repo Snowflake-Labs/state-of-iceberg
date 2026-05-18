@@ -22,7 +22,7 @@ website: https://cloud.google.com/biglake
 description: >
   Fully managed, serverless Iceberg metastore for Google Cloud. Unified
   metadata management across BigQuery, Spark, Flink, and other Iceberg
-  engines. REST Catalog API support in preview.
+  engines. Supports REST Catalog API.
 rest_api: full
 vended_credentials: true
 multi_cloud:

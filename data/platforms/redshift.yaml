@@ -62,5 +62,5 @@ catalog_integrations:
 - catalog: s3_tables
   mode: read_write
   source: https://docs.aws.amazon.com/redshift/latest/dg/querying-s3Tables.html
-notes: Write support GA November 2025, append-only (INSERT only). No UPDATE, DELETE, or MERGE.
+notes: Append-only writes (INSERT only). No UPDATE, DELETE, or MERGE.
 last_verified: '2026-03-27'

@@ -59,6 +59,5 @@ catalog_integrations:
   mode: read_write
   notes: Native integration — OneLake is Fabric's storage and catalog layer
   source: https://learn.microsoft.com/en-us/fabric/onelake/onelake-iceberg-tables
-notes: Delta-to-Iceberg metadata virtualization. External engines can read Fabric data as Iceberg via OneLake REST Catalog API (preview Oct 2025). Snowflake can write Iceberg to OneLake (GA Feb 2026). Not
-  a native Iceberg platform.
+notes: Delta-to-Iceberg metadata virtualization. External engines can read Fabric data as Iceberg via OneLake REST Catalog API. Not a native Iceberg platform.
 last_verified: '2026-03-27'
