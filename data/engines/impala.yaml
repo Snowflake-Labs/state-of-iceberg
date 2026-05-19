@@ -19,29 +19,23 @@ type: engine
 vendor: Apache
 open_source: true
 website: https://impala.apache.org/
-description: >-
-  Apache Impala provides low-latency SQL queries on Iceberg tables with full DML support
-  using copy-on-write. It supports LOAD DATA INPATH for bulk ingestion and integrates
-  natively with the Hive Metastore.
-
+description: Apache Impala provides low-latency SQL queries on Iceberg tables with full DML support using copy-on-write. It supports LOAD DATA INPATH for bulk ingestion and integrates natively with the
+  Hive Metastore.
 spec_support:
   v1: true
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: read_only
   avro: true
-
 dml:
   insert: full
   update: full
   delete: full
   merge: none
   truncate: none
-  bulk_load: "LOAD DATA INPATH"
-
+  bulk_load: LOAD DATA INPATH
 capabilities:
   schema_evolution: full
   type_widening: unknown
@@ -55,39 +49,45 @@ capabilities:
   branching_tagging: none
   iceberg_views: none
   streaming_write: none
-
 maintenance:
   auto_compaction: none
   manual_compaction: full
   snapshot_expiry: none
   orphan_cleanup: none
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: hms
-    mode: read_write
-  - catalog: polaris
-    mode: read_write
-  - catalog: nessie
-    mode: read_write
-  - catalog: unity_catalog
-    mode: read_write
-  - catalog: glue
-    mode: read_write
-  - catalog: s3_tables
-    mode: read_write
-  - catalog: lakekeeper
-    mode: read_write
-  - catalog: gravitino
-    mode: read_write
-  - catalog: biglake
-    mode: read_write
-  - catalog: horizon
-    mode: read_write
-  - catalog: onelake
-    mode: read
-
-notes: >-
-  Manual compaction via OPTIMIZE statement. ORC tables are read-only.
-
-last_verified: "2026-03-27"
+- catalog: hms
+  mode: read_write
+  source: https://impala.apache.org/docs/build/html/topics/impala_iceberg.html
+- catalog: polaris
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: nessie
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: unity_catalog
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: glue
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: s3_tables
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: lakekeeper
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: gravitino
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: biglake
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: horizon
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+- catalog: onelake
+  mode: read
+  source: https://iceberg.apache.org/docs/latest/configuration/#catalog-properties
+notes: Manual compaction via OPTIMIZE statement. ORC tables are read-only.
+last_verified: '2026-03-27'

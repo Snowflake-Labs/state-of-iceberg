@@ -36,8 +36,8 @@ multi_format:
 notes: >
   Iceberg REST endpoint available via AWS Glue, authenticated with
   SigV4. Supports Iceberg table spec v1 and v2 (default v2). Catalog
-  federation GA (November 2025) for federating remote Iceberg catalogs
-  with real-time metadata sync. Lake Formation integration for access
-  controls. View APIs not supported. RenameTable only supported for
-  Redshift-managed tables.
+  federation for federating remote Iceberg catalogs with real-time
+  metadata sync. Lake Formation integration for access controls. View
+  APIs not supported. RenameTable only supported for Redshift-managed
+  tables.
 last_verified: "2026-04-08"

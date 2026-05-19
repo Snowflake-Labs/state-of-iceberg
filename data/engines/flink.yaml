@@ -19,28 +19,22 @@ type: engine
 vendor: Apache
 open_source: true
 website: https://flink.apache.org/
-description: >-
-  Apache Flink is a stream processing framework with Iceberg integration for both batch
-  and streaming workloads. It supports streaming writes into Iceberg tables, with schema
-  auto-evolution support in dynamic sinks.
-
+description: Apache Flink is a stream processing framework with Iceberg integration for both batch and streaming workloads. It supports streaming writes into Iceberg tables, with schema auto-evolution support
+  in dynamic sinks.
 spec_support:
   v1: true
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: true
   avro: true
-
 dml:
   insert: full
   update: partial
   delete: partial
   merge: none
   truncate: none
-
 capabilities:
   schema_evolution: full
   type_widening: unknown
@@ -54,41 +48,46 @@ capabilities:
   branching_tagging: partial
   iceberg_views: none
   streaming_write: full
-
 maintenance:
   auto_compaction: none
   manual_compaction: none
   snapshot_expiry: none
   orphan_cleanup: none
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: hms
-    mode: read_write
-  - catalog: glue
-    mode: read_write
-  - catalog: polaris
-    mode: read_write
-  - catalog: nessie
-    mode: read_write
-  - catalog: unity_catalog
-    mode: read_write
-  - catalog: horizon
-    mode: read_write
-  - catalog: s3_tables
-    mode: read_write
-  - catalog: lakekeeper
-    mode: read_write
-  - catalog: gravitino
-    mode: read_write
-  - catalog: biglake
-    mode: read_write
-  - catalog: onelake
-    mode: read
-
-notes: >-
-  Update via upsert mode only. Delete via DataStream API only. Branching supports
-  read and write to branches. Schema auto-evolution via ALTER TABLE (1.17+) and
-  Dynamic Sink. No built-in maintenance procedures.
-
-last_verified: "2026-03-27"
+- catalog: hms
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: glue
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: polaris
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: nessie
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: unity_catalog
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: horizon
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: s3_tables
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: lakekeeper
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: gravitino
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: biglake
+  mode: read_write
+  source: https://iceberg.apache.org/docs/latest/flink/
+- catalog: onelake
+  mode: read
+  source: https://iceberg.apache.org/docs/latest/flink/
+notes: Update via upsert mode only. Delete via DataStream API only. Branching supports read and write to branches. Schema auto-evolution via ALTER TABLE (1.17+) and Dynamic Sink. No built-in maintenance
+  procedures.
+last_verified: '2026-03-27'
