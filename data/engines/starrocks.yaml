@@ -19,29 +19,23 @@ type: engine
 vendor: StarRocks
 open_source: true
 website: https://www.starrocks.io/
-description: >-
-  StarRocks is a high-performance analytical database with Iceberg support for federated
-  queries. It excels at read-side analytics with partial write capabilities and includes
-  a compaction service in version 4.0.
-
+description: StarRocks is a high-performance analytical database with Iceberg support for federated queries. It excels at read-side analytics with partial write capabilities and includes a compaction service
+  in version 4.0.
 spec_support:
   v1: true
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: true
   avro: false
-
 dml:
   insert: full
   update: none
   delete: none
   merge: none
   truncate: none
-  bulk_load: "INSERT OVERWRITE"
-
+  bulk_load: INSERT OVERWRITE
 capabilities:
   schema_evolution: partial
   type_widening: unknown
@@ -55,40 +49,45 @@ capabilities:
   branching_tagging: none
   iceberg_views: none
   streaming_write: none
-
 maintenance:
   auto_compaction: none
   manual_compaction: partial
   snapshot_expiry: none
   orphan_cleanup: none
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: hms
-    mode: read_write
-  - catalog: glue
-    mode: read_write
-  - catalog: polaris
-    mode: read_write
-  - catalog: lakekeeper
-    mode: read_write
-  - catalog: nessie
-    mode: read_write
-  - catalog: unity_catalog
-    mode: read_write
-  - catalog: s3_tables
-    mode: read_write
-  - catalog: gravitino
-    mode: read_write
-  - catalog: biglake
-    mode: read_write
-  - catalog: horizon
-    mode: read_write
-  - catalog: onelake
-    mode: read
-
-notes: >-
-  Read-side schema evolution and hidden partitioning. Position and equality deletes
-  supported on read side. Manual compaction via 4.0 compaction service.
-
-last_verified: "2026-03-27"
+- catalog: hms
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: glue
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: polaris
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: lakekeeper
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: nessie
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: unity_catalog
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: s3_tables
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: gravitino
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: biglake
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: horizon
+  mode: read_write
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+- catalog: onelake
+  mode: read
+  source: https://docs.starrocks.io/docs/data_source/catalog/iceberg/iceberg_catalog/
+notes: Read-side schema evolution and hidden partitioning. Position and equality deletes supported on read side. Manual compaction via 4.0 compaction service.
+last_verified: '2026-03-27'

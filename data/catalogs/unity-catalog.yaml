@@ -40,6 +40,6 @@ multi_format:
   - Hudi
 notes: >
   REST endpoint at /api/2.1/unity-catalog/iceberg-rest. Catalog federation
-  (preview) enables governing Iceberg tables in Glue, HMS, and Snowflake
-  Horizon. Ecosystem includes AWS, Google Cloud, Confluent, DuckDB.
+  enables governing Iceberg tables in Glue, HMS, and Snowflake Horizon.
+  Ecosystem includes AWS, Google Cloud, Confluent, DuckDB.
 last_verified: "2026-03-27"

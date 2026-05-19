@@ -19,28 +19,22 @@ type: engine
 vendor: RisingWave Labs
 open_source: true
 website: https://risingwave.com/
-description: >-
-  RisingWave is a streaming database that sinks materialized view results into Iceberg
-  tables. It supports upsert mode for streaming CDC workloads and integrates with
-  multiple REST-compatible catalogs for lakehouse output.
-
+description: RisingWave is a streaming database that sinks materialized view results into Iceberg tables. It supports upsert mode for streaming CDC workloads and integrates with multiple REST-compatible
+  catalogs for lakehouse output.
 spec_support:
   v1: false
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: false
   avro: false
-
 dml:
   insert: full
   update: partial
   delete: partial
   merge: none
   truncate: none
-
 capabilities:
   schema_evolution: unknown
   type_widening: unknown
@@ -54,38 +48,42 @@ capabilities:
   branching_tagging: none
   iceberg_views: none
   streaming_write: full
-
 maintenance:
   auto_compaction: none
   manual_compaction: none
   snapshot_expiry: none
   orphan_cleanup: none
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: polaris
-    mode: write
-  - catalog: glue
-    mode: write
-  - catalog: hms
-    mode: write
-  - catalog: s3_tables
-    mode: write
-  - catalog: unity_catalog
-    mode: write
-  - catalog: lakekeeper
-    mode: write
-  - catalog: nessie
-    mode: write
-  - catalog: gravitino
-    mode: write
-  - catalog: biglake
-    mode: write
-  - catalog: horizon
-    mode: write
-
-notes: >-
-  Sink-only engine for streaming materialized views into Iceberg. Update and delete
-  via upsert mode. Supports both merge-on-read and copy-on-write commit modes.
-
-last_verified: "2026-03-27"
+- catalog: polaris
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: glue
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: hms
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: s3_tables
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: unity_catalog
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: lakekeeper
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: nessie
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: gravitino
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: biglake
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+- catalog: horizon
+  mode: write
+  source: https://docs.risingwave.com/iceberg/catalogs
+notes: Sink-only engine for streaming materialized views into Iceberg. Update and delete via upsert mode. Supports both merge-on-read and copy-on-write commit modes.
+last_verified: '2026-03-27'

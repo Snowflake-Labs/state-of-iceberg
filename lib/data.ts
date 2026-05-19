@@ -54,6 +54,7 @@ export type GraphEdge = {
   mode: "read" | "write" | "read_write";
   auth?: string;
   notes?: string;
+  docSource?: string;
 };
 
 export function getGraphEdges(): GraphEdge[] {
@@ -69,6 +70,7 @@ export function getGraphEdges(): GraphEdge[] {
         mode: integration.mode,
         auth: integration.auth,
         notes: integration.notes,
+        docSource: integration.source,
       });
     }
   }

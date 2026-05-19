@@ -19,29 +19,23 @@ type: platform
 vendor: AWS
 open_source: false
 website: https://aws.amazon.com/athena
-description: >-
-  Serverless query engine with native Apache Iceberg v2 support for merge-on-read tables.
-  Integrates with AWS Glue Data Catalog and S3 Tables for Iceberg table management,
-  compaction, and snapshot lifecycle operations.
-
+description: Serverless query engine with native Apache Iceberg v2 support for merge-on-read tables. Integrates with AWS Glue Data Catalog and S3 Tables for Iceberg table management, compaction, and snapshot
+  lifecycle operations.
 spec_support:
   v1: false
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: true
   avro: true
-
 dml:
   insert: full
   update: full
   delete: full
   merge: full
   truncate: none
-  bulk_load: "CTAS"
-
+  bulk_load: CTAS
 capabilities:
   schema_evolution: full
   type_widening: full
@@ -55,23 +49,18 @@ capabilities:
   branching_tagging: none
   iceberg_views: none
   streaming_write: none
-
 maintenance:
   auto_compaction: none
   manual_compaction: full
   snapshot_expiry: full
   orphan_cleanup: full
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: glue
-    mode: read_write
-  - catalog: s3_tables
-    mode: read_write
-
-notes: >-
-  MoR only — CoW table properties are ignored. Uses Iceberg library 1.4.2.
-  Partition evolution not supported. Hidden partitioning is read-only.
-  Manual maintenance via OPTIMIZE and VACUUM commands.
-
-last_verified: "2026-03-27"
+- catalog: glue
+  mode: read_write
+  source: https://docs.aws.amazon.com/athena/latest/ug/querying-iceberg.html
+- catalog: s3_tables
+  mode: read_write
+  source: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-integrating-athena.html
+notes: MoR only — CoW table properties are ignored. Uses Iceberg library 1.4.2. Partition evolution not supported. Hidden partitioning is read-only. Manual maintenance via OPTIMIZE and VACUUM commands.
+last_verified: '2026-03-27'

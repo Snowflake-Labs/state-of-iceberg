@@ -36,8 +36,7 @@ catalog_federation: partial
 multi_format:
   - Iceberg
 notes: >
-  Read access GA February 2026. Write access preview March 2026. API
-  requests billed at 0.5 credit per million calls (billing begins mid-2026).
-  Glue and Polaris can federate with Horizon. Private connectivity
-  supported for S3 and ADLS.
+  Read and write access for external engines. API requests billed at
+  0.5 credit per million calls. Glue and Polaris can federate with
+  Horizon. Private connectivity supported for S3 and ADLS.
 last_verified: "2026-04-04"

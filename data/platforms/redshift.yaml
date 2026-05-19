@@ -19,29 +19,23 @@ type: platform
 vendor: AWS
 open_source: false
 website: https://aws.amazon.com/redshift
-description: >-
-  Cloud data warehouse with append-only Iceberg write support via INSERT and CTAS.
-  Integrates with AWS Glue Data Catalog and S3 Tables for Iceberg table creation
-  and querying, but lacks UPDATE, DELETE, and MERGE operations.
-
+description: Cloud data warehouse with append-only Iceberg write support via INSERT and CTAS. Integrates with AWS Glue Data Catalog and S3 Tables for Iceberg table creation and querying, but lacks UPDATE,
+  DELETE, and MERGE operations.
 spec_support:
   v1: false
   v2: true
   v3: false
-
 file_formats:
   parquet: true
   orc: false
   avro: false
-
 dml:
   insert: full
   update: none
   delete: none
   merge: none
   truncate: none
-  bulk_load: "CTAS"
-
+  bulk_load: CTAS
 capabilities:
   schema_evolution: partial
   type_widening: unknown
@@ -55,22 +49,18 @@ capabilities:
   branching_tagging: none
   iceberg_views: none
   streaming_write: none
-
 maintenance:
   auto_compaction: none
   manual_compaction: none
   snapshot_expiry: none
   orphan_cleanup: none
   manifest_rewrite: none
-
 catalog_integrations:
-  - catalog: glue
-    mode: read_write
-  - catalog: s3_tables
-    mode: read_write
-
-notes: >-
-  Write support GA November 2025, append-only (INSERT only).
-  No UPDATE, DELETE, or MERGE.
-
-last_verified: "2026-03-27"
+- catalog: glue
+  mode: read_write
+  source: https://docs.aws.amazon.com/redshift/latest/dg/querying-iceberg.html
+- catalog: s3_tables
+  mode: read_write
+  source: https://docs.aws.amazon.com/redshift/latest/dg/querying-s3Tables.html
+notes: Append-only writes (INSERT only). No UPDATE, DELETE, or MERGE.
+last_verified: '2026-03-27'

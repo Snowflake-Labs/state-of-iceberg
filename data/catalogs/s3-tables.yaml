@@ -34,8 +34,8 @@ catalog_federation: none
 multi_format:
   - Iceberg
 notes: >
-  Launched December 2024. REST Catalog APIs added March 2025. Cross-region
-  and cross-account replication GA December 2025. Up to 10,000 tables per
-  bucket. Unlike standalone catalogs, S3 Tables also manages the underlying
-  storage and provides automatic table maintenance.
+  Supports REST Catalog APIs. Cross-region and cross-account replication
+  available. Up to 10,000 tables per bucket. Unlike standalone catalogs,
+  S3 Tables also manages the underlying storage and provides automatic
+  table maintenance.
 last_verified: "2026-03-27"
