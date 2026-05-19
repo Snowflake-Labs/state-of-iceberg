@@ -25,17 +25,44 @@ export function Footer() {
         backgroundColor: "rgba(8,8,13,0.9)",
       }}
     >
-      <p
+      <div
         style={{
-          fontSize: "11px",
-          color: "#7878a0",
-          lineHeight: 1.6,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        This is an independent community resource and is not affiliated with or
-        endorsed by any vendor listed. Capabilities should be verified against
-        official documentation before making architectural decisions.
-      </p>
+        <p
+          style={{
+            fontSize: "13px",
+            color: "#7878a0",
+            lineHeight: 1.6,
+          }}
+        >
+          An open-source community resource. While hosted by Snowflake, all data
+          aims to be vendor-neutral and factually accurate. Contributions and
+          corrections are welcome. Data is provided as-is and should be verified
+          against official documentation before making architectural decisions.
+        </p>
+        <a
+          href="https://github.com/Snowflake-Labs/state-of-iceberg"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontSize: "13px",
+            fontWeight: 600,
+            color: "#7878a0",
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+            marginLeft: "24px",
+            transition: "color 0.15s",
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = "#b0b0c8"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = "#7878a0"; }}
+        >
+          Contribute on GitHub ↗
+        </a>
+      </div>
     </footer>
   );
 }

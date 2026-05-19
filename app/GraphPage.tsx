@@ -16,6 +16,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
 import type { GraphPayload, SerializedNode } from "@/lib/graph-data";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -33,12 +34,14 @@ export function GraphPage({
   data: GraphPayload;
   allNodeData: Record<string, SerializedNode>;
 }) {
+  const searchParams = useSearchParams();
+  const initialNodeId = searchParams.get("node") || null;
   return (
     <div style={{ height: "100vh", width: "100vw", display: "flex", flexDirection: "column", backgroundColor: "#08080d" }}>
       <Header />
 
       <main style={{ flex: 1, position: "relative", overflow: "hidden" }}>
-        <IcebergGraph data={data} allNodeData={allNodeData} />
+        <IcebergGraph data={data} allNodeData={allNodeData} initialNodeId={initialNodeId} />
 
         <div
           style={{
@@ -55,7 +58,7 @@ export function GraphPage({
         >
           <p
             style={{
-              fontSize: "12px",
+              fontSize: "14px",
               color: "#b0b0c8",
               fontWeight: 500,
               letterSpacing: "0.02em",

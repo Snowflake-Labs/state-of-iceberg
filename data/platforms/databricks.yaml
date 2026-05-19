@@ -70,3 +70,25 @@ notes: Two Iceberg modes - UniForm (Delta compatibility layer) and native Iceber
   Iceberg-native. Databricks uses v3 deletion vectors instead of v2 position/equality delete files — row-level deletes are fully supported via this alternative mechanism. HMS and Glue access is read-only via
   Lakehouse Federation.
 last_verified: '2026-03-27'
+  - catalog: unity_catalog
+    mode: read_write
+  - catalog: glue
+    mode: read
+    notes: Read-only via Lakehouse Federation foreign catalogs
+  - catalog: hms
+    mode: read
+    notes: Read-only via Lakehouse Federation foreign catalogs
+  - catalog: horizon
+    mode: read
+    notes: Read-only via Snowflake catalog federation (DBR 16.4+)
+    source: https://docs.databricks.com/aws/en/query-federation/snowflake-catalog-federation
+
+notes: >-
+  Two Iceberg modes - UniForm (Delta compatibility layer, GA) and native Iceberg managed
+  tables (Public Preview, DBR 16.4+). v3 on managed Iceberg tables DBR 18.0+.
+  Branching/tagging partial via Delta, not Iceberg-native. Databricks uses v3 deletion
+  vectors instead of v2 position/equality delete files — row-level deletes are fully
+  supported via this alternative mechanism.   HMS and Glue access is read-only via Lakehouse Federation.
+  Horizon access is read-only via Snowflake catalog federation.
+
+last_verified: "2026-04-29"
