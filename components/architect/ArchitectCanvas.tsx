@@ -26,8 +26,11 @@ import Graph from "graphology";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { SerializedNode, SerializedEdge } from "@/lib/graph-data";
 import { createEdgeArrowProgram, createEdgeDoubleArrowProgram } from "sigma/rendering";
+import { useTheme, CANVAS_THEMES, type CanvasTheme } from "@/lib/theme";
 
 import type { Settings } from "sigma/settings";
+
+let activeArchitectTheme: CanvasTheme = CANVAS_THEMES.dark;
 
 const arrowOptions = { lengthToThicknessRatio: 2.5, widenessToThicknessRatio: 3 };
 const CustomEdgeArrowProgram = createEdgeArrowProgram(arrowOptions);
@@ -115,11 +118,11 @@ function drawArchitectLabel(
 
   const pos = getNodeLabelPosition(data, textWidth, paddingX, paddingY, fontSize, gap);
 
-  context.fillStyle = "rgba(8, 8, 13, 0.85)";
+  context.fillStyle = activeArchitectTheme.labelBg;
   context.beginPath();
   context.roundRect(pos.boxX, pos.boxY, boxWidth, boxHeight, 4);
   context.fill();
-  context.fillStyle = "#e8e8ed";
+  context.fillStyle = activeArchitectTheme.labelText;
   context.textBaseline = "middle";
   context.textAlign = pos.align;
   context.fillText(label, pos.align === "center" ? pos.textX : pos.textX, pos.textY);
@@ -146,14 +149,14 @@ function drawArchitectHoverLabel(
 
   const pos = getNodeLabelPosition(data, textWidth, paddingX, paddingY, fontSize, gap);
 
-  context.fillStyle = "rgba(8, 8, 13, 0.95)";
+  context.fillStyle = activeArchitectTheme.hoverBg;
   context.beginPath();
   context.roundRect(pos.boxX, pos.boxY, boxWidth, boxHeight, 6);
   context.fill();
-  context.strokeStyle = "rgba(255,255,255,0.1)";
+  context.strokeStyle = activeArchitectTheme.hoverStroke;
   context.lineWidth = 1;
   context.stroke();
-  context.fillStyle = "#ffffff";
+  context.fillStyle = activeArchitectTheme.hoverText;
   context.textBaseline = "middle";
   context.textAlign = pos.align;
   context.fillText(label, pos.textX, pos.textY);
@@ -225,7 +228,7 @@ function CanvasGraph({
           label: node.name,
           size: NODE_SIZE,
           color: isConflicting
-            ? "rgba(100,100,120,0.25)"
+            ? getComputedStyle(document.documentElement).getPropertyValue("--conflict-node").trim() || "rgba(100,100,120,0.25)"
             : NODE_COLORS[node.type] || "#6b7280",
           type: "circle",
           x: colX,
@@ -305,17 +308,17 @@ const EDGE_LABEL_TEXT: Record<string, string> = {
 };
 
 const EDGE_LABEL_COLORS: Record<string, string> = {
-  read_write: "#34d399",
-  read: "#60a5fa",
-  write: "#fbbf24",
-  none: "#6b7280",
+  read_write: "var(--mode-rw-color)",
+  read: "var(--mode-r-color)",
+  write: "var(--mode-w-color)",
+  none: "var(--text-muted)",
 };
 
 const EDGE_LABEL_BORDER: Record<string, string> = {
-  read_write: "rgba(52,211,153,0.25)",
-  read: "rgba(96,165,250,0.25)",
-  write: "rgba(251,191,36,0.25)",
-  none: "rgba(107,114,128,0.25)",
+  read_write: "var(--mode-rw-border)",
+  read: "var(--mode-r-border)",
+  write: "var(--mode-w-border)",
+  none: "var(--border-subtle)",
 };
 
 function EdgeLabels({
@@ -400,7 +403,7 @@ function EdgeLabels({
             pointerEvents: "none",
             padding: "4px 10px",
             borderRadius: "5px",
-            backgroundColor: "rgba(8,8,13,0.95)",
+            backgroundColor: "var(--bg-elevated)",
             border: `1px solid ${EDGE_LABEL_BORDER[label.mode] || EDGE_LABEL_BORDER.read_write}`,
             fontSize: "10px",
             fontWeight: 700,
@@ -458,7 +461,7 @@ function DashedEdges({
 
         ctx.beginPath();
         ctx.setLineDash([6, 5]);
-        ctx.strokeStyle = "rgba(255,255,255,0.12)";
+        ctx.strokeStyle = activeArchitectTheme.dashedEdge;
         ctx.lineWidth = 1;
         ctx.moveTo(srcPos.x, srcPos.y);
         ctx.lineTo(tgtPos.x, tgtPos.y);
@@ -516,14 +519,14 @@ function ConflictToast({
           width: "20px",
           height: "20px",
           borderRadius: "50%",
-          backgroundColor: "rgba(251,191,36,0.15)",
-          border: "1.5px solid rgba(251,191,36,0.35)",
+          backgroundColor: "var(--conflict-badge-bg)",
+          border: "1.5px solid var(--conflict-badge-border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontSize: "12px",
           fontWeight: 700,
-          color: "#fbbf24",
+          color: "var(--mode-w-color)",
           cursor: "default",
         }}
       >
@@ -538,10 +541,10 @@ function ConflictToast({
             transform: "translateY(-50%)",
             padding: "10px 14px",
             borderRadius: "8px",
-            backgroundColor: "rgba(14,14,22,0.95)",
-            border: "1px solid rgba(251,191,36,0.25)",
+            backgroundColor: "var(--conflict-toast-bg)",
+            border: "1px solid var(--conflict-toast-border)",
             backdropFilter: "blur(12px)",
-            boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+            boxShadow: "var(--conflict-toast-shadow)",
             minWidth: "160px",
             zIndex: 50,
           }}
@@ -561,7 +564,7 @@ function ConflictToast({
                 key={i}
                 style={{
                   fontSize: "12px",
-                  color: "#fbbf24",
+                  color: "var(--mode-w-color)",
                   fontWeight: 500,
                   display: "flex",
                   alignItems: "center",
@@ -574,7 +577,7 @@ function ConflictToast({
                       width: "4px",
                       height: "4px",
                       borderRadius: "50%",
-                      backgroundColor: "#fbbf24",
+                      backgroundColor: "var(--mode-w-color)",
                       flexShrink: 0,
                     }}
                   />
@@ -639,6 +642,19 @@ function ConflictIndicators({
       })}
     </>
   );
+}
+
+function ArchitectThemeSync() {
+  const { theme } = useTheme();
+  const sigma = useSigma();
+
+  useEffect(() => {
+    activeArchitectTheme = CANVAS_THEMES[theme];
+    sigma.setSetting("labelColor", { color: activeArchitectTheme.labelText });
+    sigma.refresh();
+  }, [theme, sigma]);
+
+  return null;
 }
 
 export function ArchitectCanvas({
@@ -714,6 +730,9 @@ export function ArchitectCanvas({
             "double-arrow": CustomEdgeDoubleArrowProgram,
           },
           allowInvalidContainer: true,
+          enableCameraZooming: false,
+          enableCameraPanning: false,
+          enableCameraRotation: false,
               defaultDrawNodeLabel: drawArchitectLabel,
               defaultDrawNodeHover: drawArchitectHoverLabel,
         }}
@@ -726,6 +745,7 @@ export function ArchitectCanvas({
           conflictingNodeIds={conflictingNodeIds}
           missingEdges={missingEdges}
         />
+        <ArchitectThemeSync />
         <DashedEdges missingEdges={missingEdges} />
         <ConflictIndicators conflictingNodeIds={conflictingNodeIds} />
         <EdgeLabels edges={edges} missingEdges={missingEdges} showIntegrationLabels={showEdgeLabels} />

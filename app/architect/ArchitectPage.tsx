@@ -263,7 +263,7 @@ export function ArchitectPage({
         width: "100vw",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#08080d",
+        backgroundColor: "var(--bg-primary)",
       }}
     >
       <Header />
@@ -300,14 +300,14 @@ export function ArchitectPage({
                   borderRadius: "10px",
                   backgroundColor: showEdgeLabels
                     ? "rgba(139,92,246,0.12)"
-                    : "rgba(17,17,25,0.7)",
+                    : "var(--bg-surface)",
                   backdropFilter: "blur(8px)",
                   border: showEdgeLabels
                     ? "1px solid rgba(139,92,246,0.3)"
-                    : "1px solid rgba(255,255,255,0.06)",
+                    : "1px solid var(--border-subtle)",
                   fontSize: "13px",
                   fontWeight: 600,
-                  color: showEdgeLabels ? "#a78bfa" : "#9898b8",
+                  color: showEdgeLabels ? "var(--accent-text)" : "var(--text-secondary)",
                   cursor: "pointer",
                   transition: "all 0.15s",
                 }}
@@ -319,22 +319,22 @@ export function ArchitectPage({
                 style={{
                   padding: "10px 22px",
                   borderRadius: "10px",
-                  backgroundColor: "rgba(17,17,25,0.7)",
+                  backgroundColor: "var(--bg-surface)",
                   backdropFilter: "blur(8px)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  border: "1px solid var(--border-subtle)",
                   fontSize: "13px",
                   fontWeight: 600,
-                  color: "#9898b8",
+                  color: "var(--text-secondary)",
                   cursor: "pointer",
                   transition: "all 0.15s",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "rgba(255,255,255,0.08)";
-                  e.currentTarget.style.color = "#d0d0e0";
+                  e.currentTarget.style.backgroundColor = "var(--bg-hover)";
+                  e.currentTarget.style.color = "var(--text-node-name)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "rgba(17,17,25,0.7)";
-                  e.currentTarget.style.color = "#9898b8";
+                  e.currentTarget.style.backgroundColor = "var(--bg-surface)";
+                  e.currentTarget.style.color = "var(--text-secondary)";
                 }}
               >
                 Clear canvas
@@ -353,16 +353,16 @@ export function ArchitectPage({
                 zIndex: 40,
                 padding: "16px 28px",
                 borderRadius: "12px",
-                backgroundColor: "rgba(17,17,25,0.7)",
+                backgroundColor: "var(--bg-surface)",
                 backdropFilter: "blur(8px)",
-                border: "1px solid rgba(255,255,255,0.04)",
+                border: "1px solid var(--border-subtle)",
                 textAlign: "center",
               }}
             >
               <p
                 style={{
                   fontSize: "14px",
-                  color: "#b0b0c8",
+                  color: "var(--text-secondary)",
                   fontWeight: 500,
                   letterSpacing: "0.01em",
                 }}

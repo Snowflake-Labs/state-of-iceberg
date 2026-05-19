@@ -19,9 +19,9 @@ import { useSigma } from "@react-sigma/core";
 import { useEffect, useState } from "react";
 
 const COLUMNS = [
-  { x: -480, label: "Platforms", color: "#7eaae0" },
-  { x: 0, label: "Catalogs", color: "#e0ad4a" },
-  { x: 480, label: "Engines", color: "#4dc9a0" },
+  { x: -480, label: "Platforms", color: "var(--column-header-platform)" },
+  { x: 0, label: "Catalogs", color: "var(--column-header-catalog)" },
+  { x: 480, label: "Engines", color: "var(--column-header-engine)" },
 ];
 
 export function ColumnHeaders() {

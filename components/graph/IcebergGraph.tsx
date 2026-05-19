@@ -34,8 +34,11 @@ import {
 import type { GraphPayload, SerializedNode } from "@/lib/graph-data";
 import { NodeDetailDrawer } from "./NodeDetailDrawer";
 import { ColumnHeaders } from "./ColumnHeaders";
+import { useTheme, CANVAS_THEMES, type CanvasTheme } from "@/lib/theme";
 
 import type { Settings } from "sigma/settings";
+
+let activeCanvasTheme: CanvasTheme = CANVAS_THEMES.dark;
 
 function drawDarkLabel(
   context: CanvasRenderingContext2D,
@@ -60,12 +63,12 @@ function drawDarkLabel(
   const boxX = data.x + data.size + gap;
   const boxY = data.y - boxHeight / 2;
 
-  context.fillStyle = isDimmed ? "rgba(8, 8, 13, 0.22)" : "rgba(8, 8, 13, 0.85)";
+  context.fillStyle = isDimmed ? activeCanvasTheme.labelBgDimmed : activeCanvasTheme.labelBg;
   context.beginPath();
   context.roundRect(boxX, boxY, boxWidth, boxHeight, 4);
   context.fill();
 
-  context.fillStyle = isDimmed ? "rgba(232, 232, 237, 0.15)" : "#e8e8ed";
+  context.fillStyle = isDimmed ? activeCanvasTheme.labelTextDimmed : activeCanvasTheme.labelText;
   context.textBaseline = "middle";
   context.fillText(label, boxX + paddingX, data.y);
   context.textBaseline = "alphabetic";
@@ -93,16 +96,16 @@ function drawHoverLabel(
   const boxX = data.x + data.size + gap;
   const boxY = data.y - boxHeight / 2;
 
-  context.fillStyle = "rgba(8, 8, 13, 0.95)";
+  context.fillStyle = activeCanvasTheme.hoverBg;
   context.beginPath();
   context.roundRect(boxX, boxY, boxWidth, boxHeight, 6);
   context.fill();
 
-  context.strokeStyle = "rgba(255,255,255,0.1)";
+  context.strokeStyle = activeCanvasTheme.hoverStroke;
   context.lineWidth = 1;
   context.stroke();
 
-  context.fillStyle = "#ffffff";
+  context.fillStyle = activeCanvasTheme.hoverText;
   context.textBaseline = "middle";
   context.fillText(label, boxX + paddingX, data.y);
   context.textBaseline = "alphabetic";
@@ -442,6 +445,21 @@ function GraphEvents({
   return null;
 }
 
+function ThemeSync() {
+  const { theme } = useTheme();
+  const sigma = useSigma();
+
+  useEffect(() => {
+    activeCanvasTheme = CANVAS_THEMES[theme];
+    sigma.setSetting("labelColor", { color: activeCanvasTheme.labelText });
+    sigma.refresh();
+  }, [theme, sigma]);
+
+  return null;
+}
+
+const DRAWER_WIDTH = 440;
+
 export function IcebergGraph({
   data,
   allNodeData,
@@ -453,6 +471,11 @@ export function IcebergGraph({
 }) {
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const graphEventsRef = useRef<GraphEventsHandle | null>(null);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    activeCanvasTheme = CANVAS_THEMES[theme];
+  }, [theme]);
 
   const selectedNode = useMemo(
     () => (selectedNodeId ? allNodeData[selectedNodeId] : null),
@@ -486,7 +509,8 @@ export function IcebergGraph({
           style={{
             flex: 1,
             height: "100%",
-            transition: "all 0.3s ease",
+            transition: "transform 0.3s ease",
+            transform: selectedNodeId ? `translateX(-${DRAWER_WIDTH / 2}px)` : "translateX(0)",
           }}
         >
           <SigmaContainer
@@ -517,32 +541,27 @@ export function IcebergGraph({
                 "double-arrow": CustomEdgeDoubleArrowProgram,
               },
               allowInvalidContainer: true,
+              enableCameraZooming: false,
+              enableCameraPanning: false,
+              enableCameraRotation: false,
               defaultDrawNodeLabel: drawDarkLabel,
               defaultDrawNodeHover: drawHoverLabel,
             }}
           >
             <GraphLoader data={data} />
             <GraphEvents onSelectNode={setSelectedNodeId} eventsRef={graphEventsRef} initialNodeId={initialNodeId} />
+            <ThemeSync />
             <ColumnHeaders />
           </SigmaContainer>
         </div>
 
         {selectedNode && (
-          <div
-            style={{
-              width: "440px",
-              flexShrink: 0,
-              height: "100%",
-              position: "relative",
-            }}
-          >
-            <NodeDetailDrawer
-              node={selectedNode}
-              connections={connectedNodes}
-              onClose={() => setSelectedNodeId(null)}
-              onClickNode={(nodeId) => graphEventsRef.current?.selectNode(nodeId)}
-            />
-          </div>
+          <NodeDetailDrawer
+            node={selectedNode}
+            connections={connectedNodes}
+            onClose={() => setSelectedNodeId(null)}
+            onClickNode={(nodeId) => graphEventsRef.current?.selectNode(nodeId)}
+          />
         )}
       </div>
   );
