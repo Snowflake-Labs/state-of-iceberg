@@ -308,17 +308,17 @@ const EDGE_LABEL_TEXT: Record<string, string> = {
 };
 
 const EDGE_LABEL_COLORS: Record<string, string> = {
-  read_write: "#34d399",
-  read: "#60a5fa",
-  write: "#fbbf24",
-  none: "#6b7280",
+  read_write: "var(--mode-rw-color)",
+  read: "var(--mode-r-color)",
+  write: "var(--mode-w-color)",
+  none: "var(--text-muted)",
 };
 
 const EDGE_LABEL_BORDER: Record<string, string> = {
-  read_write: "rgba(52,211,153,0.25)",
-  read: "rgba(96,165,250,0.25)",
-  write: "rgba(251,191,36,0.25)",
-  none: "rgba(107,114,128,0.25)",
+  read_write: "var(--mode-rw-border)",
+  read: "var(--mode-r-border)",
+  write: "var(--mode-w-border)",
+  none: "var(--border-subtle)",
 };
 
 function EdgeLabels({
@@ -519,14 +519,14 @@ function ConflictToast({
           width: "20px",
           height: "20px",
           borderRadius: "50%",
-          backgroundColor: "rgba(251,191,36,0.15)",
-          border: "1.5px solid rgba(251,191,36,0.35)",
+          backgroundColor: "var(--mode-w-bg)",
+          border: "1.5px solid var(--mode-w-border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontSize: "12px",
           fontWeight: 700,
-          color: "#fbbf24",
+          color: "var(--mode-w-color)",
           cursor: "default",
         }}
       >
@@ -542,7 +542,7 @@ function ConflictToast({
             padding: "10px 14px",
             borderRadius: "8px",
             backgroundColor: "var(--bg-surface)",
-            border: "1px solid rgba(251,191,36,0.25)",
+            border: "1px solid var(--mode-w-border)",
             backdropFilter: "blur(12px)",
             boxShadow: "0 4px 16px var(--shadow)",
             minWidth: "160px",
@@ -564,7 +564,7 @@ function ConflictToast({
                 key={i}
                 style={{
                   fontSize: "12px",
-                  color: "#fbbf24",
+                  color: "var(--mode-w-color)",
                   fontWeight: 500,
                   display: "flex",
                   alignItems: "center",
@@ -577,7 +577,7 @@ function ConflictToast({
                       width: "4px",
                       height: "4px",
                       borderRadius: "50%",
-                      backgroundColor: "#fbbf24",
+                      backgroundColor: "var(--mode-w-color)",
                       flexShrink: 0,
                     }}
                   />
