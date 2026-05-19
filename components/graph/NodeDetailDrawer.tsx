@@ -38,9 +38,9 @@ const MODE_LABELS: Record<string, string> = {
 };
 
 const DOT_COLORS: Record<string, string> = {
-  catalog: "#d4942a",
-  engine: "#2da87a",
-  platform: "#5a8fd4",
+  catalog: "var(--dot-catalog)",
+  engine: "var(--dot-engine)",
+  platform: "var(--dot-platform)",
 };
 
 function SpecBadge({ v, label }: { v: boolean | "preview"; label: string }) {
@@ -56,9 +56,9 @@ function SpecBadge({ v, label }: { v: boolean | "preview"; label: string }) {
         borderRadius: "8px",
         fontSize: "14px",
         fontWeight: 600,
-        border: `1px solid ${isPreview ? "rgba(251,191,36,0.2)" : "rgba(52,211,153,0.2)"}`,
-        backgroundColor: isPreview ? "rgba(251,191,36,0.08)" : "rgba(52,211,153,0.08)",
-        color: isPreview ? "#fbbf24" : "#34d399",
+        border: `1px solid ${isPreview ? "var(--mode-w-border)" : "var(--mode-rw-border)"}`,
+        backgroundColor: isPreview ? "var(--mode-w-bg)" : "var(--mode-rw-bg)",
+        color: isPreview ? "var(--mode-w-color)" : "var(--mode-rw-color)",
       }}
     >
       {label}
@@ -218,20 +218,20 @@ function ConnectionSection({
                 borderRadius: "6px",
                 ...(conn.mode === "read_write"
                   ? {
-                      backgroundColor: "rgba(52,211,153,0.12)",
-                      color: "#34d399",
-                      border: "1px solid rgba(52,211,153,0.2)",
+                      backgroundColor: "var(--mode-rw-bg)",
+                      color: "var(--mode-rw-color)",
+                      border: "1px solid var(--mode-rw-border)",
                     }
                   : conn.mode === "read"
                   ? {
-                      backgroundColor: "rgba(96,165,250,0.12)",
-                      color: "#60a5fa",
-                      border: "1px solid rgba(96,165,250,0.2)",
+                      backgroundColor: "var(--mode-r-bg)",
+                      color: "var(--mode-r-color)",
+                      border: "1px solid var(--mode-r-border)",
                     }
                   : {
-                      backgroundColor: "rgba(251,191,36,0.12)",
-                      color: "#fbbf24",
-                      border: "1px solid rgba(251,191,36,0.2)",
+                      backgroundColor: "var(--mode-w-bg)",
+                      color: "var(--mode-w-color)",
+                      border: "1px solid var(--mode-w-border)",
                     }),
               }}
             >
