@@ -228,7 +228,7 @@ function CanvasGraph({
           label: node.name,
           size: NODE_SIZE,
           color: isConflicting
-            ? "rgba(100,100,120,0.25)"
+            ? getComputedStyle(document.documentElement).getPropertyValue("--conflict-node").trim() || "rgba(100,100,120,0.25)"
             : NODE_COLORS[node.type] || "#6b7280",
           type: "circle",
           x: colX,
@@ -519,8 +519,8 @@ function ConflictToast({
           width: "20px",
           height: "20px",
           borderRadius: "50%",
-          backgroundColor: "var(--mode-w-bg)",
-          border: "1.5px solid var(--mode-w-border)",
+          backgroundColor: "var(--conflict-badge-bg)",
+          border: "1.5px solid var(--conflict-badge-border)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -541,10 +541,10 @@ function ConflictToast({
             transform: "translateY(-50%)",
             padding: "10px 14px",
             borderRadius: "8px",
-            backgroundColor: "var(--bg-surface)",
-            border: "1px solid var(--mode-w-border)",
+            backgroundColor: "var(--conflict-toast-bg)",
+            border: "1px solid var(--conflict-toast-border)",
             backdropFilter: "blur(12px)",
-            boxShadow: "0 4px 16px var(--shadow)",
+            boxShadow: "var(--conflict-toast-shadow)",
             minWidth: "160px",
             zIndex: 50,
           }}
