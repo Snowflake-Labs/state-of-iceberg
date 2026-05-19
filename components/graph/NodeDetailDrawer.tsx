@@ -291,7 +291,7 @@ export function NodeDetailDrawer({
         right: 0,
         top: 0,
         height: "100%",
-        width: "100%",
+        width: "440px",
         backgroundColor: "var(--bg-surface)",
         backdropFilter: "blur(16px)",
         borderLeft: "1px solid var(--border-subtle)",

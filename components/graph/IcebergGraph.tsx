@@ -458,6 +458,8 @@ function ThemeSync() {
   return null;
 }
 
+const DRAWER_WIDTH = 440;
+
 export function IcebergGraph({
   data,
   allNodeData,
@@ -506,7 +508,8 @@ export function IcebergGraph({
           style={{
             flex: 1,
             height: "100%",
-            transition: "all 0.3s ease",
+            transition: "transform 0.3s ease",
+            transform: selectedNodeId ? `translateX(-${DRAWER_WIDTH / 2}px)` : "translateX(0)",
           }}
         >
           <SigmaContainer
@@ -552,21 +555,12 @@ export function IcebergGraph({
         </div>
 
         {selectedNode && (
-          <div
-            style={{
-              width: "440px",
-              flexShrink: 0,
-              height: "100%",
-              position: "relative",
-            }}
-          >
-            <NodeDetailDrawer
-              node={selectedNode}
-              connections={connectedNodes}
-              onClose={() => setSelectedNodeId(null)}
-              onClickNode={(nodeId) => graphEventsRef.current?.selectNode(nodeId)}
-            />
-          </div>
+          <NodeDetailDrawer
+            node={selectedNode}
+            connections={connectedNodes}
+            onClose={() => setSelectedNodeId(null)}
+            onClickNode={(nodeId) => graphEventsRef.current?.selectNode(nodeId)}
+          />
         )}
       </div>
   );
